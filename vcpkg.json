@@ -1,0 +1,5 @@
+{
+  "name": "soulworker-sdk",
+  "version": "0.0.1",
+  "dependencies": [ "range-v3", "spdlog", "neargye-semver", "pe-parse", "minhook" ]
+}

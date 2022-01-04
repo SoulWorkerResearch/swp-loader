@@ -1,0 +1,3 @@
+[submodule "swp-sdk"]
+	path = swp-sdk
+	url = https://github.com/SoulWorkerResearch/swp-sdk
