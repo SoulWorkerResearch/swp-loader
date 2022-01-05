@@ -13,6 +13,9 @@
     <Filter Include="sources">
       <UniqueIdentifier>{8e20427c-9eac-43fc-8e3f-bdb85793bd1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\win32">
+      <UniqueIdentifier>{fca1fe2e-0a4c-4d03-807e-dfc0593f4761}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\exports.hpp">
@@ -32,6 +35,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\dll_main.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\exports.cpp">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

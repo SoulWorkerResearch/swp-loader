@@ -36,7 +36,7 @@ EXPORTS
 	luaL_unref @34
 	luaL_where @35
 	lua_atpanic @36
-	
+	lua_atprint @37
 	lua_call @38
 	lua_checkstack @39
 	lua_close @40

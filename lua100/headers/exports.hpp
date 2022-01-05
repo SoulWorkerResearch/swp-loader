@@ -1,8 +1,7 @@
-// #pragma once
+#pragma once
 
 #include "lua/lua.h"
 #include "lua/lauxlib.h"
 #include "lua/lualib.h"
 
-// lua_atprint @37
-//LUALIB_API void lua_atprint() {}
+LUALIB_API void __declspec(dllexport) lua_atprint([[maybe_unused]] lua_State* _state, [[maybe_unused]] uintptr_t _unk_ptr);

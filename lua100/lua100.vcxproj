@@ -184,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\dll_main.cpp" />
+    <ClCompile Include="sources\exports.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\lua514\lua514.vcxproj">
