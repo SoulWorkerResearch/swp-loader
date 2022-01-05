@@ -23,8 +23,12 @@ jobs:
         build_target: ["Debug", "Release"]
         include:
         - build_target: "Debug"
-          VERSION: ${{ env.TAG_NAME }}-${{ matrix.build_target }}
-          FILE_NAME: ${{ matrix.VERSION }}.zip
+          VERSION: ${{ env.TAG_NAME }}-Debug
+          FILE_NAME: ${{ env.TAG_NAME }}-Debug.zip
+          
+        - build_target: "Release"
+          VERSION: ${{ env.TAG_NAME }}-Release
+          FILE_NAME: ${{ env.TAG_NAME }}-Release.zip
         
     steps:
     - uses: actions/checkout@v2
