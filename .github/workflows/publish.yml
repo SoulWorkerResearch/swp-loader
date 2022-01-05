@@ -13,22 +13,34 @@ env:
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
   BUILD_CONFIGURATION: Release
   
-  TAG_NAME: 1.0.0.${{ github.job }}-alpha
+  VERSION: 1.0.0.${{ github.job }}-alpha
 
 jobs:
+  build-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - id: set-matrix
+        run: |
+          matrix_row() {
+              echo "{\"build_target\":\"$1\",\"VERSION\":\"${VERSION}-$1\",\"FILE_NAME\":\"${VERSION}-$1.zip\"}"
+          }
+
+          debug=$(matrix_row "Debug")
+          release=$(matrix_row "Release")
+
+          MATRIX_JSON="{\"include\":[${debug},${release}]}"
+          
+          echo '::set-output name=matrix_output::["Debug", "Release"]'
+        env: 
+          VERSION: ${{ env.VERSION }}
+          
+    outputs:
+      matrix_output: ${{ steps.set-matrix.outputs.matrix_output }}
+  
   publish:
     runs-on: windows-2022
     strategy:
-      matrix:
-        build_target: ["Debug", "Release"]
-        include:
-        - build_target: "Debug"
-          VERSION: ${{ env.TAG_NAME }}-Debug
-          FILE_NAME: ${{ env.TAG_NAME }}-Debug.zip
-          
-        - build_target: "Release"
-          VERSION: ${{ env.TAG_NAME }}-Release
-          FILE_NAME: ${{ env.TAG_NAME }}-Release.zip
+      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix_output) }}
         
     steps:
     - uses: actions/checkout@v2
