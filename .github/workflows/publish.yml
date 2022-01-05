@@ -13,11 +13,18 @@ env:
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
   BUILD_CONFIGURATION: Release
   
-  TAG_NAME: 1.0.0-alpha
+  TAG_NAME: 1.0.0.${{ github.job }}-alpha
 
 jobs:
-  build:
+  publish:
     runs-on: windows-2022
+    strategy:
+      matrix:
+        build_target: ["Debug", "Release"]
+    
+    env:
+      VERSION: ${{ env.TAG_NAME }}-${{ matrix.build_target }}
+      FILE_NAME: ${{ env.TAG_NAME }}-${{ matrix.build_target }}.zip
 
     steps:
     - uses: actions/checkout@v2
@@ -31,18 +38,16 @@ jobs:
       run: "vcpkg integrate install"
 
     - name: Build
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{ env.GITHUB_WORKSPACE }}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+      run: msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
       
     - name: Pack output
-      run: Compress-Archive -Path ${{env.SOLUTION_FILE_PATH}}\output\*.dll -DestinationPath ${{env.TAG_NAME}}.zip
+      run: Compress-Archive -Path ${{ env.SOLUTION_FILE_PATH }}\output\*.dll -DestinationPath ${{ env.FILE_NAME }}.zip
 
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{env.TAG_NAME}}.zip
-        tag_name: ${{env.TAG_NAME}}-${{github.sha}}
-        generate_release_notes: true
-        prerelease: true
+        files: ${{ env.FILE_NAME }}
+        tag_name: ${{ env.VERSION }}
