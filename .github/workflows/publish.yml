@@ -30,17 +30,17 @@ jobs:
 
           MATRIX_JSON="{\"include\":[${debug},${release}]}"
           
-          echo '::set-output name=matrix_output::["Debug", "Release"]'
+          echo '::set-output name=matrix::${MATRIX_JSON}'
         env: 
           VERSION: ${{ env.VERSION }}
           
     outputs:
-      matrix_output: ${{ steps.set-matrix.outputs.matrix_output }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
   
   publish:
     runs-on: windows-2022
     strategy:
-      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix_output) }}
+      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
         
     steps:
     - uses: actions/checkout@v2
