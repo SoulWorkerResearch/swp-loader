@@ -1,5 +1,5 @@
 {
-  "name": "soulworker-sdk",
+  "name": "swp-loader",
   "version": "1.0.0",
   "dependencies": [ "spdlog", "neargye-semver" ]
 }
