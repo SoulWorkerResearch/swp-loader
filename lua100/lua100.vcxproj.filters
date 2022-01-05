@@ -10,11 +10,11 @@
     <Filter Include="defines">
       <UniqueIdentifier>{7d8246e9-46e6-4075-8a72-6186a2b882bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{8e20427c-9eac-43fc-8e3f-bdb85793bd1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers\dll_main.hpp">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\exports.hpp">
       <Filter>headers</Filter>
     </ClInclude>
@@ -26,13 +26,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="headers\scanner.hpp">
-      <Filter>headers</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="defines\lua100.def">
       <Filter>defines</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\dll_main.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

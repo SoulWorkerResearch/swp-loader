@@ -1,5 +1,3 @@
-#pragma once
-
 // windows
 #include <Windows.h>
 #include <Psapi.h>
@@ -16,7 +14,7 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 // local
-#include "./plugins.hpp"
+#include "../headers/plugins.hpp"
 
 auto APIENTRY DllMain(HMODULE _module, DWORD _call_reason, LPVOID _reserved) -> BOOL
 {
@@ -44,5 +42,3 @@ auto APIENTRY DllMain(HMODULE _module, DWORD _call_reason, LPVOID _reserved) -> 
   }
   return TRUE;
 }
-
-// https://youtu.be/egpdUR24ETM

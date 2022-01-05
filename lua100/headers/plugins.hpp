@@ -33,7 +33,7 @@ namespace lua100
   class
   {
   public:
-    auto attach() -> void
+    auto attach(void) -> void
     {
       using std::filesystem::recursive_directory_iterator;
       using std::filesystem::directory_entry;
@@ -58,20 +58,23 @@ namespace lua100
       {
         win32::dll plugin{ entry };
 
-        const auto& logger{ m_loggers.emplace_back(stdout_color_mt<async_factory>(entry.path().stem().generic_string(), color_mode::always)) };
+        const auto dll_name{ entry.path().stem().generic_string() };
+        const auto& logger{ m_loggers.emplace_back(stdout_color_mt<async_factory>(dll_name, color_mode::always)) };
         
         if (not plugin) {
           logger->error("{}", std::system_category().message(GetLastError()));
           continue;
         }
 
-        auto emplace{ (decltype(sdk::plugin::emplace)*)GetProcAddress(static_cast<HMODULE>(plugin), "emplace") };
+        using emplace_ptr_t = decltype(sdk::plugin::emplace)*;
+        const auto emplace{ (emplace_ptr_t)GetProcAddress(static_cast<HMODULE>(plugin), "emplace") };
         if (not emplace) {
           logger->error("haven't emplace function.", entry);
           continue;
         }
 
-        auto ready{ (decltype(sdk::plugin::ready)*)GetProcAddress(static_cast<HMODULE>(plugin), "ready") };
+        using ready_ptr_t = decltype(sdk::plugin::ready)*;
+        const auto ready{ (ready_ptr_t)GetProcAddress(static_cast<HMODULE>(plugin), "ready") };
         if (not ready) {
           logger->error("haven't ready function.", entry);
           continue;
@@ -99,7 +102,7 @@ namespace lua100
       return _value.path().extension() == ".dll";
     }
 
-    static auto directory() -> std::filesystem::path
+    static auto directory(void) -> std::filesystem::path
     {
       using std::filesystem::current_path;
       return current_path() / "plugins";

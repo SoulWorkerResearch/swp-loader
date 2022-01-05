@@ -5,5 +5,4 @@
 #include "lua/lualib.h"
 
 // lua_atprint @37
-export void _declspec(dllexport) lua_atprint()
-{}
+//LUALIB_API void lua_atprint() {}

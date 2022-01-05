@@ -175,20 +175,19 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ItemGroup>
-    <ClCompile Include="headers\scanner.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\lua514\lua514.vcxproj">
-      <Project>{ecd208fb-47f0-4bc2-b02a-3cbc661bf0c9}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="headers\dll_main.hpp" />
     <ClInclude Include="headers\exports.hpp" />
     <ClInclude Include="headers\plugins.hpp" />
     <ClInclude Include="headers\win32\dll.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="defines\lua100.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\dll_main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\lua514\lua514.vcxproj">
+      <Project>{ecd208fb-47f0-4bc2-b02a-3cbc661bf0c9}</Project>
+    </ProjectReference>
   </ItemGroup>
 </Project>
