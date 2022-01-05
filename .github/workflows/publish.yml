@@ -30,6 +30,7 @@ jobs:
 
           MATRIX_JSON="{\"include\":[${debug},${release}]}"
           
+          echo "${MATRIX_JSON}"
           echo '::set-output name=matrix::${MATRIX_JSON}'
         env: 
           VERSION: ${{ env.VERSION }}
