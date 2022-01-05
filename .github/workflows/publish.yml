@@ -28,7 +28,7 @@ jobs:
           debug=$(matrix_row "Debug")
           release=$(matrix_row "Release")
 
-          MATRIX_JSON="{\"include\": [${debug}, ${release}]}"
+          MATRIX_JSON="{\"build_target\":[\"Debug\", \"Release\"], \"include\": [${debug}, ${release}]}"
           
           echo "${MATRIX_JSON}"
           echo '::set-output name=matrix::${MATRIX_JSON}'
