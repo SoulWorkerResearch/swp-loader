@@ -20,7 +20,6 @@
 
 // local deps
 #include <sdk/plugin/plugin_emplace.hpp>
-#include <sdk/plugin/plugin_ready.hpp>
 
 template<typename TStream>
 TStream& operator<<(TStream& _os, const std::filesystem::directory_entry& _value)
@@ -73,13 +72,6 @@ namespace lua100
           continue;
         }
 
-        using ready_ptr_t = decltype(sdk::plugin::ready)*;
-        const auto ready{ (ready_ptr_t)GetProcAddress(static_cast<HMODULE>(plugin), "ready") };
-        if (not ready) {
-          logger->error("haven't ready function.", entry);
-          continue;
-        }
-
         const std::unique_ptr<sdk::plugin::info> info{ emplace() };
         if (not info) {
           logger->error("can't get info.", entry);
@@ -90,7 +82,7 @@ namespace lua100
 
         m_plugins.emplace_back(std::forward<win::dll>(plugin));
 
-        ready(logger, info->instance);
+        std::invoke(info->ready_callback, logger, info->instance);
 
         logger->info("loaded", entry);
       }
