@@ -22,13 +22,13 @@ jobs:
       - id: set-matrix
         run: |
           matrix_row() {
-              echo "{\"build_target\":\"$1\",\"VERSION\":\"${VERSION}-$1\",\"FILE_NAME\":\"${VERSION}-$1.zip\"}"
+              echo "{\"build_target\": \"$1\", \"VERSION\": \"${VERSION}-$1\", \"FILE_NAME\": \"${VERSION}-$1.zip\"}"
           }
 
           debug=$(matrix_row "Debug")
           release=$(matrix_row "Release")
 
-          MATRIX_JSON="{\"include\":[${debug},${release}]}"
+          MATRIX_JSON="{\"include\": [${debug}, ${release}]}"
           
           echo "${MATRIX_JSON}"
           echo '::set-output name=matrix::${MATRIX_JSON}'
