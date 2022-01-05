@@ -22,7 +22,7 @@ jobs:
       matrix:
         build_target: ["Debug", "Release"]
     
-    env:
+    environment:
       VERSION: ${{ env.TAG_NAME }}-${{ matrix.build_target }}
       FILE_NAME: ${{ env.TAG_NAME }}-${{ matrix.build_target }}.zip
 
