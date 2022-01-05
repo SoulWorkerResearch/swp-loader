@@ -43,6 +43,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ${{env.TAG_NAME}}.zip
-        tag_name: ${{env.TAG_NAME}}
+        tag_name: ${{env.TAG_NAME}}-${{github.sha}}
         generate_release_notes: true
         prerelease: true
