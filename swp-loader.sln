@@ -20,7 +20,6 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		swp-sdk\swp-sdk.vcxitems*{0c25ee6c-0e9e-41f6-ab3b-0bee95cd672b}*SharedItemsImports = 9
-		swp-sdk\swp-sdk.vcxitems*{6b76d007-a5b0-4f40-9183-2242a4b47939}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
