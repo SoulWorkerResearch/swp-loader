@@ -38,6 +38,7 @@ jobs:
           VERSION: ${{ env.VERSION }}  
   publish:
     runs-on: windows-2022
+    needs: build-matrix
     strategy:
       matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
         
