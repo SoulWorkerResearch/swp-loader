@@ -4,17 +4,17 @@
     <Filter Include="headers">
       <UniqueIdentifier>{fbd3542d-b003-4117-a172-70ef9d06595d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="headers\win32">
-      <UniqueIdentifier>{6c648d35-1fdb-491c-850b-089c82be228d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="defines">
       <UniqueIdentifier>{7d8246e9-46e6-4075-8a72-6186a2b882bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="sources">
       <UniqueIdentifier>{8e20427c-9eac-43fc-8e3f-bdb85793bd1c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\win32">
+    <Filter Include="sources\win">
       <UniqueIdentifier>{fca1fe2e-0a4c-4d03-807e-dfc0593f4761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\win">
+      <UniqueIdentifier>{6c648d35-1fdb-491c-850b-089c82be228d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -24,8 +24,8 @@
     <ClInclude Include="headers\plugins.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\win32\dll.hpp">
-      <Filter>headers\win32</Filter>
+    <ClInclude Include="headers\win\dll.hpp">
+      <Filter>headers\win</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

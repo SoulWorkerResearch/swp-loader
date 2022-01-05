@@ -177,7 +177,7 @@
   <ItemGroup>
     <ClInclude Include="headers\exports.hpp" />
     <ClInclude Include="headers\plugins.hpp" />
-    <ClInclude Include="headers\win32\dll.hpp" />
+    <ClInclude Include="headers\win\dll.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="defines\lua100.def" />

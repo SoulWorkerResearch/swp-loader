@@ -16,7 +16,7 @@
 #include <vector>
 
 // local
-#include "./win32/dll.hpp"
+#include "./win/dll.hpp"
 
 // local deps
 #include <sdk/plugin/plugin_emplace.hpp>
@@ -56,7 +56,7 @@ namespace lua100
       const auto files{ recursive_directory_iterator{ path } };
       for (auto& entry : files | filter(is_dll))
       {
-        win32::dll plugin{ entry };
+        win::dll plugin{ entry };
 
         const auto dll_name{ entry.path().stem().generic_string() };
         const auto& logger{ m_loggers.emplace_back(stdout_color_mt<async_factory>(dll_name, color_mode::always)) };
@@ -88,7 +88,7 @@ namespace lua100
 
         // TODO: check game version
 
-        m_plugins.emplace_back(std::forward<win32::dll>(plugin));
+        m_plugins.emplace_back(std::forward<win::dll>(plugin));
 
         ready(logger, info->instance);
 
@@ -109,6 +109,6 @@ namespace lua100
     }
 
     std::vector<std::shared_ptr<spdlog::logger>> m_loggers;
-    std::vector<win32::dll> m_plugins;
+    std::vector<win::dll> m_plugins;
   } plugins;
 }
