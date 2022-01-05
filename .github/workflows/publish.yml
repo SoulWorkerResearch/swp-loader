@@ -13,7 +13,7 @@ env:
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
   BUILD_CONFIGURATION: Release
   
-  VERSION: 1.0.0.${{ github.job }}-alpha
+  VERSION: 1.0.0.${{ github.run_id }}-alpha
 
 jobs:
   build-matrix:
