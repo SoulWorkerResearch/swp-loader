@@ -27,6 +27,8 @@ jobs:
       
     - name: Restore vcpkg packages
       uses: lukka/run-vcpkg@v10
+      with:
+          runVcpkgInstall: true
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
