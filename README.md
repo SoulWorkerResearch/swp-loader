@@ -1,5 +1,4 @@
-# swp-loader
-SoulWorker plugin loader
+[![Discord](https://img.shields.io/discord/606442027873206292?style=for-the-badge&label=Discor%20server)](http://discord.gg/SequFJP)
 
 ## How to use
 
