@@ -13,13 +13,13 @@ namespace lua100::win
     inline explicit operator HMODULE(void) noexcept { return m_handle; }
     inline explicit operator HMODULE(void) const noexcept { return m_handle; }
 
-    inline bool operator!(void) const noexcept { return m_handle == (HMODULE)NULL; }
+    inline bool operator!(void) const noexcept { return m_handle == static_cast<HMODULE>(NULL); }
 
-    inline bool operator ==(const HMODULE _value) const noexcept { return m_handle == _value; }
+    inline bool operator==(const HMODULE _value) const noexcept { return m_handle == _value; }
 
     dll& operator= (dll&& _value) noexcept
     {
-      m_handle = std::exchange(_value.m_handle, (HMODULE)NULL);
+      m_handle = std::exchange<HMODULE, HMODULE>(_value.m_handle, NULL);
       return *this;
     }
 
@@ -28,7 +28,7 @@ namespace lua100::win
     {}
 
     dll(dll&& _value) noexcept :
-      m_handle{ std::exchange(_value.m_handle, (HMODULE)NULL) }
+      m_handle{ std::exchange<HMODULE, HMODULE>(_value.m_handle, NULL) }
     {}
 
     dll(const std::filesystem::path& _value) noexcept :
