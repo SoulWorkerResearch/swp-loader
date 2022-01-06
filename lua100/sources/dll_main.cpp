@@ -30,11 +30,11 @@ auto APIENTRY DllMain(HMODULE _module, DWORD _call_reason, LPVOID _reserved) -> 
       system("pause");
     });
 
-    spdlog::set_default_logger(spdlog::stdout_color_mt<spdlog::async_factory>("default", spdlog::color_mode::always));
+    spdlog::set_default_logger(spdlog::stdout_color_mt<spdlog::async_factory>("loader", spdlog::color_mode::always));
     spdlog::set_level(spdlog::level::debug);
 
     std::thread([] {
-      lua100::plugins.attach();
+      lua100::plugins::instance.attach();
     }).detach();
 
     break;

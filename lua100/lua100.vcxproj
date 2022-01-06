@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClCompile Include="sources\dll_main.cpp" />
     <ClCompile Include="sources\exports.cpp" />
+    <ClCompile Include="sources\plugins.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\lua514\lua514.vcxproj">

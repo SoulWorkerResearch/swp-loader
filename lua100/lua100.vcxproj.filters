@@ -40,5 +40,8 @@
     <ClCompile Include="sources\exports.cpp">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="sources\plugins.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
