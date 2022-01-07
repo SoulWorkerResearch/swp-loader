@@ -32,6 +32,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+    <LinkIncremental>true</LinkIncremental>
     <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -40,6 +41,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+    <LinkIncremental>false</LinkIncremental>
     <EnableUnitySupport>true</EnableUnitySupport>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -49,6 +51,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+    <LinkIncremental>true</LinkIncremental>
     <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -57,33 +60,23 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+    <LinkIncremental>false</LinkIncremental>
     <EnableUnitySupport>true</EnableUnitySupport>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared">
-    <Import Project="..\swp-sdk\swp-sdk.vcxitems" Label="Shared" />
-  </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <PropertyGroup Label="UserMacros" />  
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
+  <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <LinkIncremental>false</LinkIncremental>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup>
-    <OutDir>$(SolutionDir)output\</OutDir>
+    <OutDir>C:\Users\sawic\Downloads\SW2016\HanPurple\soulworker\</OutDir>
     <IntDir>$(SolutionDir).tmp\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
@@ -175,6 +168,7 @@
   <ItemGroup>
     <ClInclude Include="headers\exports.hpp" />
     <ClInclude Include="headers\plugins.hpp" />
+    <ClInclude Include="headers\utils\game_version.hpp" />
     <ClInclude Include="headers\win\dll.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -184,10 +178,14 @@
     <ClCompile Include="sources\dll_main.cpp" />
     <ClCompile Include="sources\exports.cpp" />
     <ClCompile Include="sources\plugins.cpp" />
+    <ClCompile Include="sources\utils\game_version.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\lua514\lua514.vcxproj">
       <Project>{ecd208fb-47f0-4bc2-b02a-3cbc661bf0c9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\swp-sdk\swp-sdk.vcxproj">
+      <Project>{4461d076-5003-408e-876f-608dffee6b4b}</Project>
     </ProjectReference>
   </ItemGroup>
 </Project>

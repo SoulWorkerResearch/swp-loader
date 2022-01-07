@@ -1,12 +1,13 @@
 // local
 #include "../headers/plugins.hpp"
+#include "../headers/utils/game_version.hpp"
 
 // windows
 #include <Windows.h>
 
 // local deps
-#include <sdk/plugin/plugin_emplace.hpp>
-#include <sdk/plugin/plugin_loader.hpp>
+#include <swpsdk/plugin/plugin_emplace.hpp>
+#include <swpsdk/plugin/plugin_loader.hpp>
 
 // deps
 #include <spdlog/spdlog.h>
@@ -17,60 +18,67 @@
 // cpp
 #include <system_error>
 #include <filesystem>
+#include <ranges>
 
-using namespace std;
-using namespace std::filesystem;
-using namespace std::ranges::views;
-using namespace spdlog;
+namespace fs = std::filesystem;
+namespace views = std::ranges::views;
+namespace ranges = std::ranges;
 
 lua100::plugins lua100::plugins::instance;
 
 auto lua100::plugins::attach(void) -> void
 {
+  const auto game_version{ utils::game_version::read() };
+  spdlog::info("attach plugins to {} game version", game_version);
+
   const auto path{ directory() };
   if (not exists(path) && not create_directory(path)) {
     spdlog::critical("plugins directory not found.");
     return;
   }
 
-  const auto files{ recursive_directory_iterator{ path } };
-  for (auto& entry : files | filter(is_dll))
-  {
-    win::dll plugin{ entry };
+  const auto files{ fs::recursive_directory_iterator{ path } };
+  ranges::for_each(files | views::filter(is_dll), [&](const auto& _entry) {
+    win::dll plugin{ _entry };
 
-    const auto dll_name{ entry.path().stem().generic_string() };
-    const auto& logger{ m_loggers.emplace_back(stdout_color_mt<async_factory>(dll_name, color_mode::always)) };
+    const auto name{ _entry.path().stem().generic_string() };
+    const auto& logger{ m_loggers.emplace_back(stdout_color_mt<spdlog::async_factory>(name, spdlog::color_mode::always)) };
 
     if (not plugin) {
-      logger->error("{}", system_category().message(GetLastError()));
-      continue;
+      logger->error("{}", std::system_category().message(GetLastError()));
+      return;
     }
 
-    using emplace_ptr_t = decltype(sdk::plugin::emplace)*;
+    using emplace_ptr_t = decltype(swpsdk::plugin::emplace)*;
     const auto emplace{ (emplace_ptr_t)GetProcAddress(static_cast<HMODULE>(plugin), "emplace") };
     if (not emplace) {
-      logger->error("haven't emplace function.", entry);
-      continue;
+      logger->error("haven't emplace function.", _entry);
+      return;
     }
 
-    const unique_ptr<sdk::plugin::info> info{ emplace() };
+    const std::unique_ptr<swpsdk::plugin::info> info{ emplace() };
     if (not info) {
-      logger->error("can't get info.", entry);
-      continue;
+      logger->error("can't get info.", _entry);
+      return;
     }
 
-    // TODO: check game version
+    if (info->game_version != game_version) {
+      logger->error("mismatch game version [plugin: {}] != [game: {}]", info->game_version, game_version);
+      return;
+    }
 
-    m_plugins.emplace_back(forward<win::dll>(plugin));
+    // TODO: check loader version
 
-    using loader_t = sdk::plugin::loader;
-    thread{ &loader_t::ready, reinterpret_cast<const loader_t*>(info->instance), logger }.detach();
+    m_plugins.emplace_back(std::forward<win::dll>(plugin));
 
-    logger->info("registered", entry);
-  }
+    using loader_t = swpsdk::plugin::loader;
+    std::thread{ &loader_t::ready, reinterpret_cast<const loader_t*>(info->instance), logger }.detach();
+
+    logger->info("registered", _entry);
+  });
 }
 
-auto lua100::plugins::is_dll(const directory_entry& _value) -> bool
+auto lua100::plugins::is_dll(const fs::directory_entry& _value) -> bool
 {
   return _value.path().extension() == ".dll";
 }
@@ -79,10 +87,4 @@ auto lua100::plugins::directory(void) -> std::filesystem::path
 {
   using std::filesystem::current_path;
   return current_path() / "plugins";
-}
-
-template<typename TStream>
-TStream& operator<<(TStream& _os, const directory_entry& _value)
-{
-  return _os << _value.path().c_str();
 }

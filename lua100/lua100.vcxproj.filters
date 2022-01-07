@@ -16,6 +16,12 @@
     <Filter Include="headers\win">
       <UniqueIdentifier>{6c648d35-1fdb-491c-850b-089c82be228d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\utils">
+      <UniqueIdentifier>{7fec9f7f-365f-4671-8c82-fee99c7ce5b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\utils">
+      <UniqueIdentifier>{4acaeaf7-4d9f-4a3e-85ec-7abef1054b39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\exports.hpp">
@@ -26,6 +32,9 @@
     </ClInclude>
     <ClInclude Include="headers\win\dll.hpp">
       <Filter>headers\win</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils\game_version.hpp">
+      <Filter>headers\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="sources\plugins.cpp">
       <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\utils\game_version.cpp">
+      <Filter>sources\utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
