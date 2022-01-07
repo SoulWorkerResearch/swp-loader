@@ -22,7 +22,10 @@ namespace lua100
   private:
     plugins(void) noexcept {}
 
+    [[nodiscard]]
     static auto is_dll(const std::filesystem::directory_entry& _value) -> bool;
+
+    [[nodiscard]]
     static auto directory(void)->std::filesystem::path;
 
     std::vector<std::shared_ptr<spdlog::logger>> m_loggers;
