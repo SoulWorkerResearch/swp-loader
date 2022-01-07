@@ -15,6 +15,8 @@ namespace lua100
   class plugins final
   {
   public:
+    using plugins_t = std::vector<win::dll>;
+
     static plugins instance;
 
     auto attach(void) -> void;
@@ -28,7 +30,6 @@ namespace lua100
     [[nodiscard]]
     static auto directory(void)->std::filesystem::path;
 
-    std::vector<std::shared_ptr<spdlog::logger>> m_loggers;
-    std::vector<win::dll> m_plugins;
+    plugins_t m_plugins;
   };
 }

@@ -168,7 +168,9 @@
   <ItemGroup>
     <ClInclude Include="headers\exports.hpp" />
     <ClInclude Include="headers\plugins.hpp" />
+    <ClInclude Include="headers\utils\attach_range.hpp" />
     <ClInclude Include="headers\utils\game_version.hpp" />
+    <ClInclude Include="headers\utils\spdlog_formatter.hpp" />
     <ClInclude Include="headers\win\dll.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +180,7 @@
     <ClCompile Include="sources\dll_main.cpp" />
     <ClCompile Include="sources\exports.cpp" />
     <ClCompile Include="sources\plugins.cpp" />
+    <ClCompile Include="sources\utils\attach_range.cpp" />
     <ClCompile Include="sources\utils\game_version.cpp" />
   </ItemGroup>
   <ItemGroup>
