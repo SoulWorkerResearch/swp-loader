@@ -1,0 +1,6 @@
+{
+  "BUILD_CONFIGURATION": "$1",
+  "PATHS": "$3",
+  "VERSION": "$2-$1",
+  "FILE_NAME": "$2-$1.zip"
+}
