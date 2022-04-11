@@ -15,7 +15,7 @@ jobs:
       matrix: ${{ steps.generate_matrix.outputs.matrix }}
     steps:
       - id: generate_matrix
-        run: .github\workflows\generate_matrix.sh
+        run: .github/workflows/generate_matrix.sh
         env: 
           VERSION: ${{ env.VERSION }}
 
