@@ -16,6 +16,7 @@ jobs:
     steps:
       - id: generate_matrix
         run: |
+          ls
           chmod +x .github/workflows/generate_matrix.sh
           ./.github/workflows/generate_matrix.sh
         env: 
