@@ -1,3 +1,6 @@
 [submodule "swp-sdk"]
 	path = swp-sdk
 	url = git@github.com:SoulWorkerResearch/swp-sdk.git
+[submodule "swp-template"]
+	path = swp-template
+	url = git@github.com:SoulWorkerResearch/swp-template.git
