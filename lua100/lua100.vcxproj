@@ -33,7 +33,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
     <LinkIncremental>true</LinkIncremental>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <VCToolsVersion />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -42,8 +42,8 @@
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
     <LinkIncremental>false</LinkIncremental>
-    <EnableUnitySupport>true</EnableUnitySupport>
     <WholeProgramOptimization>true</WholeProgramOptimization>
+    <VCToolsVersion />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -52,7 +52,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
     <LinkIncremental>true</LinkIncremental>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <VCToolsVersion />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -61,7 +61,6 @@
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
     <LinkIncremental>false</LinkIncremental>
-    <EnableUnitySupport>true</EnableUnitySupport>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -73,10 +72,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <LinkIncremental>false</LinkIncremental>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <VCToolsVersion />
   </PropertyGroup>
   <PropertyGroup>
-    <OutDir>C:\Users\sawic\Downloads\SW2016\HanPurple\soulworker\</OutDir>
+    <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir).tmp\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
@@ -168,9 +167,8 @@
   <ItemGroup>
     <ClInclude Include="headers\exports.hpp" />
     <ClInclude Include="headers\plugins.hpp" />
-    <ClInclude Include="headers\utils\attach_range.hpp" />
+    <ClInclude Include="headers\utils\plugin_loader.hpp" />
     <ClInclude Include="headers\utils\game_version.hpp" />
-    <ClInclude Include="headers\utils\spdlog_formatter.hpp" />
     <ClInclude Include="headers\win\dll.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +178,7 @@
     <ClCompile Include="sources\dll_main.cpp" />
     <ClCompile Include="sources\exports.cpp" />
     <ClCompile Include="sources\plugins.cpp" />
-    <ClCompile Include="sources\utils\attach_range.cpp" />
+    <ClCompile Include="sources\utils\plugin_loader.cpp" />
     <ClCompile Include="sources\utils\game_version.cpp" />
   </ItemGroup>
   <ItemGroup>

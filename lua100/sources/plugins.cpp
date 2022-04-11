@@ -1,10 +1,10 @@
 // local
 #include "../headers/plugins.hpp"
-#include "../headers/utils/attach_range.hpp"
-#include "../headers/utils/spdlog_formatter.hpp"
+#include "../headers/utils/plugin_loader.hpp"
 
 // local deps
-#include <swpsdk/sdk_version.hpp>
+#include <swpsdk/defines.hpp>
+#include <swpsdk/utils/spdlog_formatter.hpp>
 
 // deps
 #include <spdlog/spdlog.h>
@@ -17,9 +17,7 @@ lua100::plugins lua100::plugins::instance;
 
 auto lua100::plugins::attach(void) -> void
 {
-  spdlog::info("sdk v{}", swpsdk::version);
-
-  utils::attach_range attacher{ m_plugins };
+  spdlog::info("sdk v{}", swpsdk::current_version);
 
   const auto path{ directory() };
   if (not exists(path) && not create_directory(path)) {
@@ -27,17 +25,21 @@ auto lua100::plugins::attach(void) -> void
     return;
   }
 
-  const auto files{ fs::recursive_directory_iterator{ path } };
-  ranges::for_each(files | views::filter(is_dll), attacher);
+  utils::plugin_loader attacher;
+  for (const auto& entry : fs::recursive_directory_iterator{ path } | views::filter(is_dll)) {
+    auto&& plugin{ attacher(entry) };
+    if (not plugin) continue;
+
+    m_plugins.emplace_back(std::forward<decltype(plugin)>(plugin));
+  }
 }
 
 auto lua100::plugins::is_dll(const fs::directory_entry& _value) -> bool
 {
-  return _value.path().extension() == ".dll";
+  return _value.is_regular_file() && _value.path().extension() == ".dll";
 }
 
 auto lua100::plugins::directory(void) -> std::filesystem::path
 {
-  using std::filesystem::current_path;
-  return current_path() / "plugins";
+  return fs::current_path() / "plugins";
 }

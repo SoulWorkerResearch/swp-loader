@@ -36,10 +36,7 @@
     <ClInclude Include="headers\utils\game_version.hpp">
       <Filter>headers\utils</Filter>
     </ClInclude>
-    <ClInclude Include="headers\utils\attach_range.hpp">
-      <Filter>headers\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\utils\spdlog_formatter.hpp">
+    <ClInclude Include="headers\utils\plugin_loader.hpp">
       <Filter>headers\utils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -61,7 +58,7 @@
     <ClCompile Include="sources\utils\game_version.cpp">
       <Filter>sources\utils</Filter>
     </ClCompile>
-    <ClCompile Include="sources\utils\attach_range.cpp">
+    <ClCompile Include="sources\utils\plugin_loader.cpp">
       <Filter>sources\utils</Filter>
     </ClCompile>
   </ItemGroup>
