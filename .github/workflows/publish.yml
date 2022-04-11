@@ -16,8 +16,8 @@ jobs:
     steps:
       - id: generate_matrix
         run: |
-          chmod +x ${{ env.GITHUB_WORKSPACE }}/.github/workflows/generate_matrix.sh
-          ./${{ env.GITHUB_WORKSPACE }}/.github/workflows/generate_matrix.sh
+          chmod +x .github/workflows/generate_matrix.sh
+          ./.github/workflows/generate_matrix.sh
         env: 
           VERSION: ${{ env.VERSION }}
 
