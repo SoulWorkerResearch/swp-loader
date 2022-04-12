@@ -72,5 +72,5 @@ auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry)
 lua100::utils::plugin_loader::plugin_loader(void) : 
   m_game_version{ utils::game_version::read() }
 {
-  spdlog::info("plugin loader for game v{}", m_game_version);
+  spdlog::info("game v{}", m_game_version);
 }

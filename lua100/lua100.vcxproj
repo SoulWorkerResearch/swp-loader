@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="headers\exports.hpp" />
     <ClInclude Include="headers\plugins.hpp" />
+    <ClInclude Include="headers\utils\config.hpp" />
     <ClInclude Include="headers\utils\plugin_loader.hpp" />
     <ClInclude Include="headers\utils\game_version.hpp" />
     <ClInclude Include="headers\win\dll.hpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="sources\dll_main.cpp" />
     <ClCompile Include="sources\exports.cpp" />
     <ClCompile Include="sources\plugins.cpp" />
+    <ClCompile Include="sources\utils\config.cpp" />
     <ClCompile Include="sources\utils\plugin_loader.cpp" />
     <ClCompile Include="sources\utils\game_version.cpp" />
   </ItemGroup>

@@ -39,6 +39,9 @@
     <ClInclude Include="headers\utils\plugin_loader.hpp">
       <Filter>headers\utils</Filter>
     </ClInclude>
+    <ClInclude Include="headers\utils\config.hpp">
+      <Filter>headers\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="defines\lua100.def">
@@ -59,6 +62,9 @@
       <Filter>sources\utils</Filter>
     </ClCompile>
     <ClCompile Include="sources\utils\plugin_loader.cpp">
+      <Filter>sources\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\utils\config.cpp">
       <Filter>sources\utils</Filter>
     </ClCompile>
   </ItemGroup>
