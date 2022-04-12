@@ -75,7 +75,7 @@
     <VCToolsVersion />
   </PropertyGroup>
   <PropertyGroup>
-    <OutDir>$(SolutionDir)output\</OutDir>
+    <OutDir>C:\Users\sawic\Downloads\SW2016\HanPurple\soulworker\</OutDir>
     <IntDir>$(SolutionDir).tmp\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
