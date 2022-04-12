@@ -9,6 +9,7 @@ env:
 
 jobs:
   update-version:
+    if: "!contains(github.event.head_commit.message, 'Apply automatic changes')"
     runs-on: ubuntu-latest
     steps:  
     - name: Checkout
@@ -36,6 +37,7 @@ jobs:
         branch: main 
 
   publish:
+    if: "!contains(github.event.head_commit.message, 'Apply automatic changes')"
     runs-on: windows-latest
     needs: update-version
     strategy:
