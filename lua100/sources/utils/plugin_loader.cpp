@@ -33,8 +33,7 @@ auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry)
 {
   win::dll plugin{ _entry };
 
-  const auto name{ _entry.path().stem().generic_string() };
-  const auto logger{ create_logger(name) };
+  const auto logger{ m_logger_factory->create(_entry.path()) };
 
   if (not plugin) {
     logger->error(std::system_category().message(GetLastError()));
@@ -69,8 +68,9 @@ auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry)
   return plugin;
 }
 
-lua100::utils::plugin_loader::plugin_loader(void) : 
-  m_game_version{ utils::game_version::read() }
+lua100::utils::plugin_loader::plugin_loader(const logger_factory_t& _logger_factory)
+  : m_game_version{ utils::game_version::read() }
+  , m_logger_factory{ _logger_factory }
 {
   spdlog::info("game v{}", m_game_version);
 }

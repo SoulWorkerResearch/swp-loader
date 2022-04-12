@@ -2,6 +2,7 @@
 
 // local
 #include "../plugins.hpp"
+#include "../logger_factory.hpp"
 
 // cpp
 #include <filesystem>
@@ -16,9 +17,10 @@ namespace lua100::utils
   public:
     auto operator()(const std::filesystem::directory_entry& _entry) const ->win::dll;
 
-    plugin_loader(void);
+    plugin_loader(const logger_factory_t& _logger_factory);
 
   private:
     const swpsdk::version m_game_version;
+    const logger_factory_t m_logger_factory;
   };
 }

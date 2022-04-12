@@ -166,6 +166,7 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="headers\exports.hpp" />
+    <ClInclude Include="headers\logger_factory.hpp" />
     <ClInclude Include="headers\plugins.hpp" />
     <ClInclude Include="headers\utils\config.hpp" />
     <ClInclude Include="headers\utils\plugin_loader.hpp" />
@@ -178,6 +179,7 @@
   <ItemGroup>
     <ClCompile Include="sources\dll_main.cpp" />
     <ClCompile Include="sources\exports.cpp" />
+    <ClCompile Include="sources\logger_factory.cpp" />
     <ClCompile Include="sources\plugins.cpp" />
     <ClCompile Include="sources\utils\config.cpp" />
     <ClCompile Include="sources\utils\plugin_loader.cpp" />

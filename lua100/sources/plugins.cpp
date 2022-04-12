@@ -15,7 +15,7 @@ namespace ranges = std::ranges;
 
 lua100::plugins lua100::plugins::instance;
 
-auto lua100::plugins::attach(void) -> void
+auto lua100::plugins::attach(const logger_factory_t& _logger) -> void
 {
   spdlog::info("sdk v{}", swpsdk::current_version);
 
@@ -25,9 +25,9 @@ auto lua100::plugins::attach(void) -> void
     return;
   }
 
-  utils::plugin_loader attacher;
+  utils::plugin_loader loader{ _logger };
   for (const auto& entry : fs::recursive_directory_iterator{ path } | views::filter(is_dll)) {
-    auto&& plugin{ attacher(entry) };
+    auto&& plugin{ loader(entry) };
     if (not plugin) continue;
 
     m_plugins.emplace_back(std::forward<decltype(plugin)>(plugin));

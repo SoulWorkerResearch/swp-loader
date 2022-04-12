@@ -9,6 +9,7 @@
 
 // local
 #include "./win/dll.hpp"
+#include "./logger_factory.hpp"
 
 namespace lua100
 {
@@ -19,7 +20,7 @@ namespace lua100
 
     static plugins instance;
 
-    auto attach(void) -> void;
+    auto attach(const logger_factory_t& _logger) -> void;
 
   private:
     plugins(void) noexcept {}
