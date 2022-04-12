@@ -21,9 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{86A6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{643D2799-F38E-406F-8BAC-E5832FC1EA6D}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build_target.json = .github\workflows\build_target.json
-		.github\workflows\generate_matrix.sh = .github\workflows\generate_matrix.sh
-		.github\workflows\publish.yml = .github\workflows\publish.yml
+		.github\workflows\deploy.yml = .github\workflows\deploy.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{BF797649-742D-4EDE-B8B5-FB20299E0D23}"
+	ProjectSection(SolutionItems) = preProject
+		.github\scripts\UpdateVersion.ps1 = .github\scripts\UpdateVersion.ps1
 	EndProjectSection
 EndProject
 Global
@@ -79,6 +82,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{86A60607-838D-4753-8DC1-0B6F9646395F} = {63EEFC1C-6495-4740-A31D-79F739B0B103}
 		{643D2799-F38E-406F-8BAC-E5832FC1EA6D} = {86A60607-838D-4753-8DC1-0B6F9646395F}
+		{BF797649-742D-4EDE-B8B5-FB20299E0D23} = {86A60607-838D-4753-8DC1-0B6F9646395F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1C576E4-2334-4147-8345-F578440D4A30}
