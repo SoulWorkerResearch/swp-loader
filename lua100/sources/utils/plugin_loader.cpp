@@ -62,7 +62,9 @@ auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry)
   }
 
   using loader_t = swpsdk::plugin::loader;
-  std::invoke(&loader_t::attach, reinterpret_cast<const loader_t*>(info->instance), logger);
+
+  auto p{ reinterpret_cast<const loader_t*>(info->instance) };
+  std::invoke(&loader_t::attach, p, logger);
 
   logger->info("attached v{}", info->plugin_version);
   return plugin;

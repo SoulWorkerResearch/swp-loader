@@ -27,7 +27,7 @@ auto lua100::plugins::attach(const logger_factory_t& _logger) -> void
 
   utils::plugin_loader loader{ _logger };
   for (const auto& entry : fs::recursive_directory_iterator{ path } | views::filter(is_dll)) {
-    auto&& plugin{ loader(entry) };
+    auto plugin{ loader(entry) };
     if (not plugin) continue;
 
     m_plugins.emplace_back(std::forward<decltype(plugin)>(plugin));
