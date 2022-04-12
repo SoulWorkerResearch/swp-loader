@@ -37,7 +37,7 @@ jobs:
 
   publish:
     runs-on: windows-latest
-    needs: generate-matrix
+    needs: update-version
     strategy:
       matrix: 
         include:
