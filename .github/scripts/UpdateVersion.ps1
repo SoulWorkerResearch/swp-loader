@@ -1,6 +1,6 @@
 $version = $Env:VERSION -replace '\.',', '
 
-$path =  '../../swp-sdk/defines.hpp'
+$path =  '../../swp-sdk/headers/swpsdk/defines.hpp'
 $content = Get-Content -Path $path
 
 $content = $content -replace '(.*?current_version{) .*',('$1 ' + $version + ' };')
