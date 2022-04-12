@@ -1,4 +1,4 @@
-$version = $Env:VERSION -replace '\.',', '
+$version = $Env:VERSION -replace '\.',', ' -replace '-',', '
 
 $path =  '../../swp-sdk/headers/swpsdk/defines.hpp'
 $content = Get-Content -Path $path
