@@ -29,10 +29,10 @@ namespace lua100
       sinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>(spdlog::color_mode::always));
     }
 
-    spdlog::set_level(m_level);
+    const auto logger{ std::make_shared<spdlog::logger>(name.string(), sinks.begin(), sinks.end()) };
+    logger->set_level(m_level);
 
-    return std::make_shared<spdlog::logger>(name.string(), sinks.begin(), sinks.end());
-
+    return logger;
   }
 
   logger_factory::logger_factory(const std::string& _level, const bool _use_console)
