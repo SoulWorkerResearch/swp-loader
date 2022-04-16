@@ -33,7 +33,6 @@
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
     <LinkIncremental>true</LinkIncremental>
-    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -43,7 +42,6 @@
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
     <LinkIncremental>false</LinkIncremental>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -52,7 +50,6 @@
     <CharacterSet>Unicode</CharacterSet>
     <PreferredToolArchitecture>x86</PreferredToolArchitecture>
     <LinkIncremental>true</LinkIncremental>
-    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -72,10 +69,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <LinkIncremental>false</LinkIncremental>
-    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup>
-    <OutDir>$(SolutionDir)output\</OutDir>
+    <OutDir>C:\Users\sawic\Downloads\SW2016\HanPurple\soulworker\</OutDir>
     <IntDir>$(SolutionDir).tmp\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
@@ -137,6 +133,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>$(ProjectDir)defines\lua100.def</ModuleDefinitionFile>
+      <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -159,16 +156,20 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>$(ProjectDir)defines\lua100.def</ModuleDefinitionFile>
+      <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="headers\app.hpp" />
     <ClInclude Include="headers\exports.hpp" />
     <ClInclude Include="headers\logger_factory.hpp" />
     <ClInclude Include="headers\plugins.hpp" />
+    <ClInclude Include="headers\plugin_info.hpp" />
     <ClInclude Include="headers\utils\config.hpp" />
+    <ClInclude Include="headers\utils\logger.hpp" />
     <ClInclude Include="headers\utils\plugin_loader.hpp" />
     <ClInclude Include="headers\utils\game_version.hpp" />
     <ClInclude Include="headers\win\dll.hpp" />
@@ -177,11 +178,13 @@
     <None Include="defines\lua100.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="sources\app.cpp" />
     <ClCompile Include="sources\dll_main.cpp" />
     <ClCompile Include="sources\exports.cpp" />
     <ClCompile Include="sources\logger_factory.cpp" />
     <ClCompile Include="sources\plugins.cpp" />
     <ClCompile Include="sources\utils\config.cpp" />
+    <ClCompile Include="sources\utils\logger.cpp" />
     <ClCompile Include="sources\utils\plugin_loader.cpp" />
     <ClCompile Include="sources\utils\game_version.cpp" />
   </ItemGroup>

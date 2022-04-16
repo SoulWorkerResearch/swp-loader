@@ -24,33 +24,34 @@
 
 namespace fs = std::filesystem;
 
- auto create_logger(const std::string& _name)
+auto create_logger(const std::string& _name)
 {
   return spdlog::stdout_color_mt<spdlog::async_factory>(_name, spdlog::color_mode::always);
 }
 
-auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry) const -> win::dll
+auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry) const->std::unique_ptr<plugin_info>
 {
-  win::dll plugin{ _entry };
+  win::dll dll{ _entry };
 
-  const auto logger{ m_logger_factory->create(_entry.path()) };
+  auto logger{ m_logger_factory->create(_entry.path()) };
 
-  if (not plugin) {
+  if (not dll) {
     logger->error(std::system_category().message(GetLastError()));
-    return{};
+    return nullptr;
   }
 
   using attach_ptr_t = decltype(swpsdk::plugin::attach)*;
-  const auto attach{ reinterpret_cast<attach_ptr_t>(GetProcAddress(static_cast<HMODULE>(plugin), "attach")) };
+  const auto address{ GetProcAddress(static_cast<HMODULE>(dll), "attach") };
+  const auto attach{ reinterpret_cast<attach_ptr_t>(address) };
   if (not attach) {
     logger->error("haven't attach function.", _entry);
-    return{};
+    return nullptr;
   }
 
   const std::unique_ptr<swpsdk::plugin::info> info{ attach() };
   if (not info) {
     logger->error("can't get info.", _entry);
-    return{};
+    return nullptr;
   }
 
   if (info->game_version != m_game_version) {
@@ -58,7 +59,7 @@ auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry)
   }
 
   if (info->sdk_version != swpsdk::current_version) {
-    logger->warn("mismatch game version [plugin: {}] != [loader: {}]", info->sdk_version, swpsdk::current_version);
+    logger->warn("mismatch sdk version [plugin: {}] != [loader: {}]", info->sdk_version, swpsdk::current_version);
   }
 
   using loader_t = swpsdk::plugin::loader;
@@ -67,7 +68,7 @@ auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry)
   std::invoke(&loader_t::attach, p, logger);
 
   logger->info("attached v{}", info->plugin_version);
-  return plugin;
+  return std::make_unique<plugin_info>(std::forward<decltype(dll)>(dll), std::forward<decltype(logger)>(logger));
 }
 
 lua100::utils::plugin_loader::plugin_loader(const logger_factory_t& _logger_factory)

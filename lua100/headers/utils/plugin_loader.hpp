@@ -15,7 +15,7 @@ namespace lua100::utils
   class plugin_loader final
   {
   public:
-    auto operator()(const std::filesystem::directory_entry& _entry) const ->win::dll;
+    auto operator()(const std::filesystem::directory_entry& _entry) const->std::unique_ptr<plugin_info>;
 
     plugin_loader(const logger_factory_t& _logger_factory);
 

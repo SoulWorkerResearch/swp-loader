@@ -45,6 +45,15 @@
     <ClInclude Include="headers\logger_factory.hpp">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="headers\plugin_info.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils\logger.hpp">
+      <Filter>headers\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\app.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="defines\lua100.def">
@@ -71,6 +80,12 @@
       <Filter>sources\utils</Filter>
     </ClCompile>
     <ClCompile Include="sources\logger_factory.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\utils\logger.cpp">
+      <Filter>sources\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\app.cpp">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

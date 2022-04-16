@@ -10,7 +10,7 @@
 namespace level = spdlog::level;
 namespace fs = std::filesystem;
 
-namespace utils::config
+namespace lua100::utils::config
 {
   auto create_default(void) -> toml::table
   {

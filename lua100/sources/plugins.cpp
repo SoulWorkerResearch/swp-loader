@@ -13,8 +13,6 @@ namespace fs = std::filesystem;
 namespace views = std::ranges::views;
 namespace ranges = std::ranges;
 
-lua100::plugins lua100::plugins::instance;
-
 auto lua100::plugins::attach(const logger_factory_t& _logger) -> void
 {
   spdlog::info("sdk v{}", swpsdk::current_version);
