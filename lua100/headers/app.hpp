@@ -31,7 +31,7 @@ namespace lua100
 #pragma region Members
 
     plugins m_plugins;
-    std::string logs_path;
+    const std::string m_logs_path{ std::format("logs/latest", std::chrono::system_clock::now()) };
 
 #pragma endregion
 

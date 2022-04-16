@@ -13,6 +13,16 @@ namespace fs = std::filesystem;
 namespace views = std::ranges::views;
 namespace ranges = std::ranges;
 
+auto is_dll(const fs::directory_entry& _value) -> bool
+{
+  return _value.is_regular_file() && _value.path().extension() == ".dll";
+}
+
+auto directory(void) -> std::filesystem::path
+{
+  return fs::current_path() / "plugins";
+}
+
 auto lua100::plugins::attach(const logger_factory_t& _logger) -> void
 {
   spdlog::info("sdk v{}", swpsdk::current_version);
@@ -30,14 +40,4 @@ auto lua100::plugins::attach(const logger_factory_t& _logger) -> void
 
     m_plugins.emplace_back(std::forward<decltype(plugin)>(plugin));
   }
-}
-
-auto lua100::plugins::is_dll(const fs::directory_entry& _value) -> bool
-{
-  return _value.is_regular_file() && _value.path().extension() == ".dll";
-}
-
-auto lua100::plugins::directory(void) -> std::filesystem::path
-{
-  return fs::current_path() / "plugins";
 }

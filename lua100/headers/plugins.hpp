@@ -49,16 +49,6 @@ namespace lua100
 
   private:
 
-#pragma region Methods
-
-    [[nodiscard]]
-    static auto is_dll(const std::filesystem::directory_entry& _value) -> bool;
-
-    [[nodiscard]]
-    static auto directory(void)->std::filesystem::path;
-
-#pragma endregion Methods
-
 #pragma region Members
 
     plugins_t m_plugins;

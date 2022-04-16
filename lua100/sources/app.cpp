@@ -32,7 +32,7 @@ namespace lua100
       AllocConsole();
     }
 
-    const auto factory{ std::make_shared<logger_factory>(logs_path, log_level, use_console) };
+    const auto factory{ std::make_shared<logger_factory>(m_logs_path, log_level, use_console) };
     setup_logger(_module, factory);
 
     std::thread{ &lua100::plugins::attach, &m_plugins, factory }.detach();
@@ -46,13 +46,12 @@ namespace lua100
 
     spdlog::shutdown();
 
-    utils::logger::pack(logs_path);
-    fs::remove_all(logs_path);
+    utils::logger::pack(m_logs_path);
+    fs::remove_all(m_logs_path);
   }
 
   app::app(void) 
-    : logs_path{ std::format("logs/latest", std::chrono::system_clock::now()) }
   {
-    fs::create_directories(logs_path);
+    fs::create_directories(m_logs_path);
   }
 }
