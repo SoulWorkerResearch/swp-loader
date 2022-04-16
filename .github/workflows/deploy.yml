@@ -73,3 +73,4 @@ jobs:
       with:
         files: swp-loader-${{ env.VERSION }}-${{ matrix.BUILD_CONFIGURATION }}.zip
         tag_name: ${{ env.VERSION }}
+        generate_release_notes: true
