@@ -20,7 +20,7 @@ namespace lua100
 
 #pragma region Types
 
-    using plugins_t = std::vector<std::unique_ptr<plugin_info>>;
+    using plugins_t = std::vector<plugin_info>;
 
 #pragma endregion Types
 
@@ -28,10 +28,7 @@ namespace lua100
 
     auto attach(const logger_factory_t& _logger) -> void;
 
-    constexpr auto detach(void) -> void
-    {
-      m_plugins.clear();
-    }
+    constexpr auto detach(void) -> void { m_plugins.clear(); }
 
     [[nodiscard]]
     constexpr plugins_t::iterator begin(void) noexcept { return m_plugins.begin(); }

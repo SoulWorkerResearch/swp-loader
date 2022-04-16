@@ -15,7 +15,7 @@ namespace ranges = std::ranges;
 
 auto is_dll(const fs::directory_entry& _value) -> bool
 {
-  return _value.is_regular_file() && _value.path().extension() == ".dll";
+  return _value.path().extension() == ".dll";
 }
 
 auto directory(void) -> std::filesystem::path
@@ -35,9 +35,9 @@ auto lua100::plugins::attach(const logger_factory_t& _logger) -> void
 
   utils::plugin_loader loader{ _logger };
   for (const auto& entry : fs::recursive_directory_iterator{ path } | views::filter(is_dll)) {
-    auto plugin{ loader(entry) };
+    const auto plugin{ loader(entry) };
     if (not plugin) continue;
 
-    m_plugins.emplace_back(std::forward<decltype(plugin)>(plugin));
+    m_plugins.emplace_back(std::forward<decltype(plugin)::element_type>(*plugin));
   }
 }
