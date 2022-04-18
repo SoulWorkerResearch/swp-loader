@@ -18,7 +18,7 @@ namespace lua100
     const auto name{ _path.filename().replace_extension(".txt")};
     const auto filepath{ path / name };
 
-    std::vector<spdlog::sink_ptr> sinks{ std::make_shared<spdlog::sinks::basic_file_sink_mt>(filepath.string()) };
+    std::vector<spdlog::sink_ptr> sinks{ std::make_shared<spdlog::sinks::basic_file_sink_mt>(filepath.string(), true) };
 
     if (m_use_console) {
       sinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>(spdlog::color_mode::always));
