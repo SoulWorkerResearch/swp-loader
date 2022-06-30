@@ -78,8 +78,6 @@ auto lua100::app::attach(void) -> void
 
 DWORD WINAPI lua100::app::on_attach_requested(VOID) noexcept
 {
-	instance().attach();
-
 	if (NO_ERROR != DetourTransactionBegin()) {
 		utils::logger::system_error();
 	}
@@ -96,6 +94,7 @@ DWORD WINAPI lua100::app::on_attach_requested(VOID) noexcept
 		utils::logger::system_error();
 	}
 
+	instance().attach();
 
 	return TrueGetCurrentProcessId();
 }

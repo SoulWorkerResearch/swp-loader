@@ -9,7 +9,18 @@ auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry)
 {
   auto logger{ m_logger_factory->create(_entry.path()) };
 
+  if (0 == SetDllDirectory(_entry.path().parent_path().c_str())) {
+    logger->error(std::system_category().message(GetLastError()));
+    return nullptr;
+  }
+
   win::dll dll{ _entry };
+  
+  if (0 == SetDllDirectory(NULL)) {
+    logger->error(std::system_category().message(GetLastError()));
+    return nullptr;
+  }
+
   if (not dll) {
     logger->error(std::system_category().message(GetLastError()));
     return nullptr;
