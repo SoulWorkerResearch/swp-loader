@@ -1,11 +1,5 @@
 #pragma once
 
-// windows
-#include <Windows.h>
-
-// cpp
-#include <filesystem>
-
 namespace lua100::win
 {
   struct dll final

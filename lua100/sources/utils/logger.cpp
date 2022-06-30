@@ -1,15 +1,7 @@
 // local
-#include "../../headers/utils/logger.hpp"
+#include "utils/logger.hpp"
 
-// cpp
-#include <string>
-#include <format>
-#include <fstream>
-
-// deps
-#include <libzippp/libzippp.h>
-
-namespace z = libzippp;
+namespace zpp = libzippp;
 namespace fs = std::filesystem;
 
 auto rename_exists(const std::string& _path) -> void
@@ -22,20 +14,22 @@ auto rename_exists(const std::string& _path) -> void
   }
 }
 
-namespace lua100::utils::logger
+auto lua100::utils::logger::pack(const std::string& _directory) -> void
 {
-  auto pack(const std::string& _directory) -> void
-  {
-    const auto full_path{ std::format("{}.zip", _directory) };
-    rename_exists(full_path);
+  const auto full_path{ std::format("{}.zip", _directory) };
+  rename_exists(full_path);
 
-    z::ZipArchive archive{ full_path };
-    archive.open(z::ZipArchive::New);
+  zpp::ZipArchive archive{ full_path };
+  archive.open(zpp::ZipArchive::New);
 
-    for (const auto& _entry : fs::directory_iterator{ _directory }) {
-      const auto path{ _entry.path() };
-      auto name = path.filename().string();
-      archive.addFile(name, path.string());
-    }
+  for (const auto& _entry : fs::directory_iterator{ _directory }) {
+    const auto path{ _entry.path() };
+    auto name = path.filename().string();
+    archive.addFile(name, path.string());
   }
+}
+
+auto lua100::utils::logger::system_error(void) -> void 
+{
+  spdlog::error(std::system_category().message(GetLastError()));
 }

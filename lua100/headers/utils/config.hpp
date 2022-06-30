@@ -1,8 +1,6 @@
 #pragma once
 
-// deps
-#include <toml++/toml.h>
-#include <spdlog/spdlog.h>
+// namespace toml { class table; }
 
 namespace lua100::utils::config
 {

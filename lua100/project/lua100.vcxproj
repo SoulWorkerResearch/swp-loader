@@ -85,18 +85,22 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SWP_LOADER;NOMINMAX;WIN32;_DEBUG;LUA100_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MODULE_NAME="$(ProjectName)";SWP_LOADER;NOMINMAX;WIN32;_DEBUG;LUA100_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(SolutionDir)swp-sdk\headers;$(SolutionDir)lua514;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\headers\;$(SolutionDir)swp-sdk\headers;$(SolutionDir)lua514\headers\</AdditionalIncludeDirectories>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>%(PrecompiledHeaderFile)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <ModuleDefinitionFile>$(ProjectDir)defines\lua100.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>$(ProjectDir)..\defines\lua100.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -105,12 +109,16 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SWP_LOADER;NOMINMAX;WIN32;NDEBUG;LUA100_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MODULE_NAME="$(ProjectName)";SWP_LOADER;NOMINMAX;WIN32;NDEBUG;LUA100_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(SolutionDir)swp-sdk\headers;$(SolutionDir)lua514;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\headers\;$(SolutionDir)swp-sdk\headers;$(SolutionDir)lua514\headers\</AdditionalIncludeDirectories>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>%(PrecompiledHeaderFile)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,25 +126,29 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <ModuleDefinitionFile>$(ProjectDir)defines\lua100.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>$(ProjectDir)..\defines\lua100.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SWP_LOADER;NOMINMAX;_DEBUG;LUA100_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MODULE_NAME="$(ProjectName)";SWP_LOADER;NOMINMAX;_DEBUG;LUA100_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(SolutionDir)swp-sdk\headers;$(SolutionDir)lua514;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\headers\;$(SolutionDir)swp-sdk\headers;$(SolutionDir)lua514\headers\</AdditionalIncludeDirectories>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>%(PrecompiledHeaderFile)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <ModuleDefinitionFile>$(ProjectDir)defines\lua100.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>$(ProjectDir)..\defines\lua100.def</ModuleDefinitionFile>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -146,12 +158,16 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SWP_LOADER;NOMINMAX;NDEBUG;LUA100_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MODULE_NAME="$(ProjectName)";SWP_LOADER;NOMINMAX;NDEBUG;LUA100_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(SolutionDir)swp-sdk\headers;$(SolutionDir)lua514;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\headers\;$(SolutionDir)swp-sdk\headers;$(SolutionDir)lua514\headers\</AdditionalIncludeDirectories>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>%(PrecompiledHeaderFile)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -159,7 +175,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <ModuleDefinitionFile>$(ProjectDir)defines\lua100.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>$(ProjectDir)..\defines\lua100.def</ModuleDefinitionFile>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -167,36 +183,43 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="headers\app.hpp" />
-    <ClInclude Include="headers\exports.hpp" />
-    <ClInclude Include="headers\logger_factory.hpp" />
-    <ClInclude Include="headers\plugins.hpp" />
-    <ClInclude Include="headers\plugin_info.hpp" />
-    <ClInclude Include="headers\utils\config.hpp" />
-    <ClInclude Include="headers\utils\logger.hpp" />
-    <ClInclude Include="headers\utils\plugin_loader.hpp" />
-    <ClInclude Include="headers\utils\game_version.hpp" />
-    <ClInclude Include="headers\win\dll.hpp" />
+    <ClInclude Include="..\headers\app.hpp" />
+    <ClInclude Include="..\headers\exports.hpp" />
+    <ClInclude Include="..\headers\logger_factory.hpp" />
+    <ClInclude Include="..\headers\pch.hpp" />
+    <ClInclude Include="..\headers\plugins.hpp" />
+    <ClInclude Include="..\headers\plugin_info.hpp" />
+    <ClInclude Include="..\headers\utils\config.hpp" />
+    <ClInclude Include="..\headers\utils\logger.hpp" />
+    <ClInclude Include="..\headers\utils\plugin_loader.hpp" />
+    <ClInclude Include="..\headers\utils\game_version.hpp" />
+    <ClInclude Include="..\headers\win\dll.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="defines\lua100.def" />
+    <None Include="..\defines\lua100.def" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sources\app.cpp" />
-    <ClCompile Include="sources\dll_main.cpp" />
-    <ClCompile Include="sources\exports.cpp" />
-    <ClCompile Include="sources\logger_factory.cpp" />
-    <ClCompile Include="sources\plugins.cpp" />
-    <ClCompile Include="sources\utils\config.cpp" />
-    <ClCompile Include="sources\utils\logger.cpp" />
-    <ClCompile Include="sources\utils\plugin_loader.cpp" />
-    <ClCompile Include="sources\utils\game_version.cpp" />
+    <ClCompile Include="..\sources\app.cpp" />
+    <ClCompile Include="..\sources\dll_main.cpp" />
+    <ClCompile Include="..\sources\exports.cpp" />
+    <ClCompile Include="..\sources\logger_factory.cpp" />
+    <ClCompile Include="..\sources\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\sources\plugins.cpp" />
+    <ClCompile Include="..\sources\utils\config.cpp" />
+    <ClCompile Include="..\sources\utils\logger.cpp" />
+    <ClCompile Include="..\sources\utils\plugin_loader.cpp" />
+    <ClCompile Include="..\sources\utils\game_version.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lua514\lua514.vcxproj">
+    <ProjectReference Include="..\..\lua514\project\lua514.vcxproj">
       <Project>{ecd208fb-47f0-4bc2-b02a-3cbc661bf0c9}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\swp-sdk\swp-sdk.vcxproj">
+    <ProjectReference Include="..\..\swp-sdk\project\swp-sdk.vcxproj">
       <Project>{4461d076-5003-408e-876f-608dffee6b4b}</Project>
     </ProjectReference>
   </ItemGroup>

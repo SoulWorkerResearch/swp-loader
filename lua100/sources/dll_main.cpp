@@ -1,9 +1,5 @@
-// windows
-#include <Windows.h>
-#include <Psapi.h>
-
 // local
-#include "../headers/app.hpp"
+#include "app.hpp"
 
 namespace level = spdlog::level;
 namespace fs = std::filesystem;
@@ -17,7 +13,7 @@ auto APIENTRY DllMain(HMODULE _module, DWORD _call_reason, [[maybe_unused]] LPVO
   case DLL_PROCESS_ATTACH: {
     DisableThreadLibraryCalls(_module);
 
-    app::instance().attach(_module);
+    app::instance().install();
 
     break;
   }

@@ -1,11 +1,5 @@
 // local
-#include "../../headers/utils/config.hpp"
-
-// deps
-#include <spdlog/spdlog.h>
-
-// cpp
-#include <filesystem>
+#include "utils/config.hpp"
 
 namespace level = spdlog::level;
 namespace fs = std::filesystem;

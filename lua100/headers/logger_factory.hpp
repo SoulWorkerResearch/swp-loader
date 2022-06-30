@@ -1,22 +1,22 @@
 #pragma once
 
-// deps
-#include <spdlog/spdlog.h>
-
-// cpp
-#include <string_view>
-#include <filesystem>
-#include <memory>
-
 namespace lua100
 {
   class logger_factory final
   {
   public:
 
+#pragma region Types
+
+    using type_value = std::shared_ptr<logger_factory>;
+
+#pragma endregion Types
+
 #pragma region Members
 
     const std::filesystem::path path;
+    const spdlog::level::level_enum level;
+    const bool use_console;
 
 #pragma endregion Members
 
@@ -28,20 +28,9 @@ namespace lua100
 
 #pragma region Constructors
 
-    logger_factory(const std::string& _path, const std::string& _level, const bool _use_console);
+    logger_factory(const std::filesystem::path& _path, const std::string& _level, const bool _use_console);
 
 #pragma endregion Constructors
 
-  private:
-
-#pragma region Members
-
-    const spdlog::level::level_enum m_level;
-    const bool m_use_console;
-
-#pragma endregion Members
-
   };
-
-  using logger_factory_t = std::shared_ptr<logger_factory>;
 }

@@ -1,8 +1,5 @@
 // local
-#include "../headers/exports.hpp"
-
-// deps
-#include <spdlog/spdlog.h>
+#include "exports.hpp"
 
 namespace lua100
 {

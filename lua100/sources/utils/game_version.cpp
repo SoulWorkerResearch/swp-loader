@@ -1,11 +1,5 @@
 // local
-#include "../../headers/utils/game_version.hpp"
-
-// windows
-#include <Windows.h>
-
-// cpp
-#include <filesystem>
+#include "utils/game_version.hpp"
 
 using namespace swpsdk;
 using namespace std;

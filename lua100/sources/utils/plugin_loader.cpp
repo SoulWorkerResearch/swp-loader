@@ -1,40 +1,15 @@
 // local
-#include "../../headers/utils/plugin_loader.hpp"
-#include "../../headers/utils/game_version.hpp"
-#include "../../headers/plugins.hpp"
-
-// windows
-#include <Windows.h>
-
-// local deps
-#include <swpsdk/utils/spdlog_formatter.hpp>
-#include <swpsdk/plugin/attach.hpp>
-#include <swpsdk/plugin/loader.hpp>
-
-// deps
-#include <spdlog/spdlog.h>
-#include <spdlog/async.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-
-// cpp
-#include <system_error>
-#include <filesystem>
-#include <ranges>
-#include <future>
+#include "utils/plugin_loader.hpp"
+#include "utils/game_version.hpp"
+#include "plugins.hpp"
 
 namespace fs = std::filesystem;
 
-auto create_logger(const std::string& _name)
-{
-  return spdlog::stdout_color_mt<spdlog::async_factory>(_name, spdlog::color_mode::always);
-}
-
 auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry) const->std::unique_ptr<plugin_info>
 {
-  win::dll dll{ _entry };
-
   auto logger{ m_logger_factory->create(_entry.path()) };
 
+  win::dll dll{ _entry };
   if (not dll) {
     logger->error(std::system_category().message(GetLastError()));
     return nullptr;
@@ -71,7 +46,7 @@ auto lua100::utils::plugin_loader::operator()(const fs::directory_entry& _entry)
   return std::make_unique<plugin_info>(std::forward<decltype(dll)>(dll), std::forward<decltype(logger)>(logger));
 }
 
-lua100::utils::plugin_loader::plugin_loader(const logger_factory_t& _logger_factory)
+lua100::utils::plugin_loader::plugin_loader(const logger_factory::type_value& _logger_factory)
   : m_game_version{ utils::game_version::read() }
   , m_logger_factory{ _logger_factory }
 {

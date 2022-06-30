@@ -17,10 +17,10 @@ namespace lua100::utils
   public:
     auto operator()(const std::filesystem::directory_entry& _entry) const->std::unique_ptr<plugin_info>;
 
-    plugin_loader(const logger_factory_t& _logger_factory);
+    plugin_loader(const logger_factory::type_value& _logger_factory);
 
   private:
     const swpsdk::version m_game_version;
-    const logger_factory_t m_logger_factory;
+    const logger_factory::type_value m_logger_factory;
   };
 }

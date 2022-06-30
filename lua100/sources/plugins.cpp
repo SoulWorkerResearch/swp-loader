@@ -1,13 +1,8 @@
 // local
-#include "../headers/plugins.hpp"
-#include "../headers/utils/plugin_loader.hpp"
+#include "plugins.hpp"
+#include "utils/plugin_loader.hpp"
 
-// local deps
-#include <swpsdk/defines.hpp>
-#include <swpsdk/utils/spdlog_formatter.hpp>
-
-// deps
-#include <spdlog/spdlog.h>
+#include <fmt/format.h>
 
 namespace fs = std::filesystem;
 namespace views = std::ranges::views;
@@ -23,7 +18,8 @@ auto directory(void) -> std::filesystem::path
   return fs::current_path() / "plugins";
 }
 
-auto lua100::plugins::attach(const logger_factory_t& _logger) -> void
+
+auto lua100::plugins::attach(const logger_factory::type_value& _logger) -> void
 {
   spdlog::info("sdk v{}", swpsdk::current_version);
 

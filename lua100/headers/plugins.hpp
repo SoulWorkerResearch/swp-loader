@@ -1,12 +1,5 @@
 #pragma once
 
-// deps
-#include <spdlog/logger.h>
-
-// cpp
-#include <ranges>
-#include <vector>
-
 // local
 #include "./win/dll.hpp"
 #include "./logger_factory.hpp"
@@ -26,7 +19,7 @@ namespace lua100
 
 #pragma region Methods
 
-    auto attach(const logger_factory_t& _logger) -> void;
+    auto attach(const logger_factory::type_value& _logger) -> void;
 
     constexpr auto detach(void) -> void { m_plugins.clear(); }
 

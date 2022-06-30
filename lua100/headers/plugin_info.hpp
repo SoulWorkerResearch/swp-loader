@@ -3,13 +3,11 @@
 // local
 #include "./win/dll.hpp"
 
-// deps
-#include <spdlog/spdlog.h>
-
 namespace lua100
 {
   struct plugin_info sealed
   {
+
 #pragma region Methods
 
     auto dll(void) const noexcept -> const win::dll& { return m_dll; }

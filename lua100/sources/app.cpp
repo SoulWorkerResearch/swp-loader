@@ -1,57 +1,101 @@
 // local
-#include "../headers/app.hpp"
-#include "../headers/utils/config.hpp"
-#include "../headers/utils/logger.hpp"
-#include "../headers/logger_factory.hpp"
-
-// cpp
-#include <memory>
-#include <thread>
+#include "app.hpp"
+#include "utils/config.hpp"
+#include "utils/logger.hpp"
+#include "logger_factory.hpp"
 
 namespace level = spdlog::level;
 namespace fs = std::filesystem;
 
+decltype(GetCurrentProcessId)* TrueGetCurrentProcessId = reinterpret_cast<decltype(TrueGetCurrentProcessId)>(GetProcAddress(GetModuleHandle(TEXT("Kernel32.dll")), "GetCurrentProcessId"));
+
 namespace lua100
 {
-  auto setup_logger(const HMODULE _module, const std::shared_ptr<logger_factory>& _factory) -> void
-  {
-    std::string name(MAX_PATH, '\0');
-    GetModuleFileNameA(_module, name.data(), name.size());
+	auto setup_logger(const toml::table& _config, const std::string& _path) -> const logger_factory::type_value
+	{
+		const auto use_console{ _config["logger"]["use_console"].value_or(utils::config::default_use_log_console()) };
+		const auto log_level{ _config["logger"]["level"].value_or(utils::config::default_log_level()) };
 
-    const auto logger{ _factory->create(name) };
-    spdlog::set_default_logger(logger);
-  }
+		if (use_console && 0 == AllocConsole()) {
+			throw std::runtime_error("AllocConsole");
+		}
 
-  auto app::attach(const HMODULE _module) -> void
-  {
-    const auto config{ utils::config::load() };
-    const auto use_console{ config["logger"]["use_console"].value_or(utils::config::default_use_log_console()) };
-    const auto log_level{ config["logger"]["level"].value_or(utils::config::default_log_level()) };
+		const auto factory{ std::make_shared<logger_factory>(_path, log_level, use_console) };
 
-    if (use_console) {
-      AllocConsole();
-    }
+		std::wstring name(MAX_PATH, '\0');
+		if (0 == GetModuleFileName(GetModuleHandle(TEXT(MODULE_NAME)), name.data(), name.size())) {
+			throw std::runtime_error("GetModuleFileName");
+		}
 
-    const auto factory{ std::make_shared<logger_factory>(m_logs_path, log_level, use_console) };
-    setup_logger(_module, factory);
+		const auto logger{ factory->create(name) };
+		spdlog::set_default_logger(logger);
 
-    std::thread{ &lua100::plugins::attach, &m_plugins, factory }.detach();
+		return factory;
+	}
+}
 
-    // TODO: hook main of game and wait plugins loading
-  }
+auto lua100::app::install(void) -> void
+{
+	if (NO_ERROR != DetourTransactionBegin()) {
+		utils::logger::system_error();
+	}
 
-  auto app::detach(void) -> void
-  {
-    m_plugins.detach();
+	if (NO_ERROR != DetourUpdateThread(GetCurrentThread())) {
+		utils::logger::system_error();
+	}
 
-    spdlog::shutdown();
+	if (NO_ERROR != DetourAttach(&(PVOID&)TrueGetCurrentProcessId, on_attach_requested)) {
+		utils::logger::system_error();
+	}
 
-    utils::logger::pack(m_logs_path);
-    fs::remove_all(m_logs_path);
-  }
+	if (NO_ERROR != DetourTransactionCommit()) {
+		utils::logger::system_error();
+	}
+}
 
-  app::app(void) 
-  {
-    fs::create_directories(m_logs_path);
-  }
+auto lua100::app::detach(void) -> void
+{
+	m_plugins.detach();
+
+	spdlog::shutdown();
+
+	utils::logger::pack(m_logs_path);
+	fs::remove_all(m_logs_path);
+}
+
+lua100::app::app(void)
+{
+	fs::create_directories(m_logs_path);
+}
+
+auto lua100::app::attach(void) -> void
+{
+	const auto config{ utils::config::load() };
+	const auto factory{ setup_logger(config, m_logs_path) };
+
+	m_plugins.attach(factory);
+}
+
+DWORD WINAPI lua100::app::on_attach_requested(VOID) noexcept
+{
+	instance().attach();
+
+	if (NO_ERROR != DetourTransactionBegin()) {
+		utils::logger::system_error();
+	}
+
+	if (NO_ERROR != DetourUpdateThread(GetCurrentThread())) {
+		utils::logger::system_error();
+	}
+
+	if (NO_ERROR != DetourDetach(&(PVOID&)TrueGetCurrentProcessId, on_attach_requested)) {
+		utils::logger::system_error();
+	}
+
+	if (NO_ERROR != DetourTransactionCommit()) {
+		utils::logger::system_error();
+	}
+
+
+	return TrueGetCurrentProcessId();
 }
