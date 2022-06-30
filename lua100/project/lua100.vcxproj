@@ -75,7 +75,7 @@
     <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup>
-    <OutDir>C:\Users\sawic\Downloads\SW2016\HanPurple\soulworker\</OutDir>
+    <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir).tmp\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
