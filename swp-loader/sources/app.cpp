@@ -50,12 +50,12 @@ namespace swpl
 	{
 		spdlog::debug("loading plugins...");
 
-		auto is_dll = [](const fs::directory_entry& _value) -> bool
+		constexpr const auto is_dll = [](const fs::directory_entry& _value) -> bool
 		{
 			return _value.path().extension() == PLUGIN_EXT;
 		};
 
-		auto plugins_directory = [](void) -> fs::path
+		constexpr const auto plugins_directory = [](void) -> fs::path
 		{
 			return fs::current_path() / PLUGINS_DIR;
 		};
