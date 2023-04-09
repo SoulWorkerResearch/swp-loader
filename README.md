@@ -1,15 +1,20 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
 
-# SoulWorker Plugin Launcher
+# SoulWorker Plugin Loader
 
 ## What the...
 
-This is an auxiliary application designed to inject the loader into the game. It will be useful if you don't have an alternative way to inject the loader.
+That's what we're all here for. Dll library for loading plugins into this wonderful game..
 
 ## How to
 
-- Unpack the latest available archive from the [release](../../releases) page into your game folder. Replace the files if necessary.
-- Now you can run the game using steam.
+- Unpack the latest available archive from the [release](../../releases) page into your game folder. Replace the files if necessary
+- To use the loader, you need some kind of launcher. If you don't have one, you can use [this](https://github.com/SoulWorkerResearch/swp-launcher)
+- Now you can run the game using steam
+
+## For Developers
+
+[Your place is here](https://github.com/SoulWorkerResearch/swp-sdk)
 
 ## [Well cum 👌 to discord](http://discord.gg/SequFJP)
 
