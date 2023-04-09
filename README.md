@@ -8,7 +8,7 @@ That's what we're all here for. Dll library for loading plugins into this wonder
 
 ## How to
 
-- Unpack the latest available archive from the [release](../../releases) page into your game folder. Replace the files if necessary
+- Unzip the latest available release version archive (not the debug one, if you are not a developer) from the [release](../../releases) page into your game folder. Replace the files if necessary
 - To use the loader, you need some kind of launcher. If you don't have one, you can use [this](https://github.com/SoulWorkerResearch/swp-launcher)
 - Now you can run the game using steam
 
