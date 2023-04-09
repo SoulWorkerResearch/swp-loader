@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{685d69fe-9b34-4d4b-85cd-95d816741403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\plugin">
+      <UniqueIdentifier>{77fe4c0d-e9ab-4216-944f-6e22318ac897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\plugin">
+      <UniqueIdentifier>{76d57490-93d1-49c3-8b0d-f7deffd3c73f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\hooks">
+      <UniqueIdentifier>{908612df-aa0b-473b-9560-2df176d1a5d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\hooks\heap_set_information">
+      <UniqueIdentifier>{c9d3e001-99c3-44c2-ac53-84b94a27df5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\hooks">
+      <UniqueIdentifier>{5271f6cc-6978-4981-805c-68e6fd443db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\hooks\heap_set_information">
+      <UniqueIdentifier>{f26d5d96-052a-4b2b-9208-501004b605fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\hooks\get_current_process_id">
+      <UniqueIdentifier>{2baf975e-db9d-414c-a8ce-652db3a989d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\hooks\get_current_process_id">
+      <UniqueIdentifier>{8430ad32-e5f6-4566-a99a-78e91ee238eb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\headers\framework.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\pch.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\targetver.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\app.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\config.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\plugin\loader.hpp">
+      <Filter>headers\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\hooks\heap_set_information\install.hpp">
+      <Filter>headers\hooks\heap_set_information</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\hooks\heap_set_information\uninstall.hpp">
+      <Filter>headers\hooks\heap_set_information</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\hooks\heap_set_information\ptr.hpp">
+      <Filter>headers\hooks\heap_set_information</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\hooks\heap_set_information\mock.hpp">
+      <Filter>headers\hooks\heap_set_information</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\hooks\get_current_process_id\mock.hpp">
+      <Filter>headers\hooks\get_current_process_id</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\hooks\get_current_process_id\install.hpp">
+      <Filter>headers\hooks\get_current_process_id</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\hooks\get_current_process_id\ptr.hpp">
+      <Filter>headers\hooks\get_current_process_id</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\hooks\get_current_process_id\uninstall.hpp">
+      <Filter>headers\hooks\get_current_process_id</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\headers\helpers\logger\setup_global.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\sources\main.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\pch.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\app.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\plugin\loader.cpp">
+      <Filter>sources\plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\hooks\heap_set_information\install.cpp">
+      <Filter>sources\hooks\heap_set_information</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\hooks\heap_set_information\uninstall.cpp">
+      <Filter>sources\hooks\heap_set_information</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\hooks\heap_set_information\mock.cpp">
+      <Filter>sources\hooks\heap_set_information</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\hooks\get_current_process_id\mock.cpp">
+      <Filter>sources\hooks\get_current_process_id</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\hooks\get_current_process_id\install.cpp">
+      <Filter>sources\hooks\get_current_process_id</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\hooks\get_current_process_id\uninstall.cpp">
+      <Filter>sources\hooks\get_current_process_id</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\helpers\logger\setup_global.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\resources\exports.def">
+      <Filter>resources</Filter>
+    </None>
+  </ItemGroup>
+</Project>
