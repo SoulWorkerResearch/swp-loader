@@ -1,0 +1,26 @@
+name: Test Build
+
+on:
+  push
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    strategy:
+      matrix: 
+        include:
+          - BUILD_CONFIGURATION: Debug
+          - BUILD_CONFIGURATION: Release
+            
+    name: ${{ matrix.BUILD_CONFIGURATION }}
+    steps:          
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        submodules: true
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@main
+
+    - name: Build solution
+      run: msbuild /m /p:Configuration=${{ matrix.BUILD_CONFIGURATION }} /property:Platform=x86
