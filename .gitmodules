@@ -1,3 +1,4 @@
 [submodule "swp-sdk"]
 	path = swp-sdk
 	url = git@github.com:SoulWorkerResearch/swp-sdk.git
+	branch = dev

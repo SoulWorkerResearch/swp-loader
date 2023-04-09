@@ -1,5 +1,5 @@
 {
   "name": "swp-loader",
   "version": "1.0.0",
-  "dependencies": [ "spdlog", "tomlplusplus", "libzippp", "detours" ]
+  "dependencies": [ "spdlog", "boost-dll", "nlohmann-json", "detours" ]
 }

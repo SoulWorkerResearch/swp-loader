@@ -1,13 +1,16 @@
-[![Discord](https://img.shields.io/discord/606442027873206292?style=for-the-badge&label=Discor%20server)](http://discord.gg/SequFJP)
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
 
-## How to use
+# SoulWorker Plugin Launcher
 
-- Download latest release [here.](https://github.com/SoulWorkerResearch/swp-loader/releases)
-  > Use file with postfix "Release"  
-  > As example: 1.0.0.1660643635-alpha-Release.zip
-- Unzip the contents into the game folder with the replacement.
-   <details><summary>No need to talk about backups of the files being replaced, right?</summary>
-      <img src="https://user-images.githubusercontent.com/10461884/148367283-b4ec10cd-e50a-4395-a96d-fb010cc2c2ab.png" />
-    </details>
-## Developers documentation
-[click me](https://github.com/SoulWorkerResearch/swp-sdk-docs)
+## What the...
+
+This is an auxiliary application designed to inject the loader into the game. It will be useful if you don't have an alternative way to inject the loader.
+
+## How to
+
+- Unpack the latest available archive from the [release](../../releases) page into your game folder. Replace the files if necessary.
+- Now you can run the game using steam.
+
+## [Well cum 👌 to discord](http://discord.gg/SequFJP)
+
+[![Discord](https://img.shields.io/discord/606442027873206292?style=flat-square)](http://discord.gg/SequFJP)
