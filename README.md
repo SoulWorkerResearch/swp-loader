@@ -4,7 +4,7 @@
 
 ## What the...
 
-That's what we're all here for. Dll library for loading plugins into this wonderful game..
+That's what we're all here for. Dll library for loading plugins into this wonderful game...
 
 ## How to
 
