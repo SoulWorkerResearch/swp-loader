@@ -14,7 +14,9 @@ That's what we're all here for. Dll library for loading plugins into this wonder
 
 ## For Developers
 
-[Your place is here](https://github.com/SoulWorkerResearch/swp-sdk)
+- [vcpkg](https://vcpkg.io/) is needed for dependency management. If you don't want to fuck with it (GLHF), you can install dependencies yourself. They are listed in the `vcpkg.json` file under the `dependencies` property
+- To build this project I use [![image](https://img.shields.io/badge/Visual_Studio-5C2D91?style=flat-square&logo=visual%20studio&logoColor=white)](https://visualstudio.microsoft.com/vs/preview/) version 17.6
+- SDK for plugin development can be found [here](https://github.com/SoulWorkerResearch/swp-sdk)
 
 ## [Well cum 👌 to discord](http://discord.gg/SequFJP)
 
