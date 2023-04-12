@@ -39,7 +39,7 @@ jobs:
       id: sdk
       shell: pwsh
       run: | 
-        $values = Get-Content -Path ".\swp-sdk\swp-sdk\headers\swpsdk\sdk_version.hpp" | Select-String -Pattern "sdk_version{\W+([\d]+)\,\W+([\d]+)\,\W+([\d]+)\,\W+([\d]+)\W+}" -AllMatches
+        $values = Get-Content -Path ".\swp-sdk\swp-sdk\headers\swpsdk\sdk_version.hpp" | Select-String -Pattern "sdk_version{\W+([\d]+)\,\W+([\d]+)\,\W+([\d]+)(\W+|,\W+[\d]+)\W+}" -AllMatches
         
         $value = "latest=0.0.0"
         if ($values.Matches.Groups.Length -ne 0) {
