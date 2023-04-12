@@ -43,9 +43,9 @@ jobs:
         
         $value = "latest=0.0.0"
         if ($values.Matches.Groups.Length -ne 0) {
-          $value = latest="$($values.Matches.Groups[1].Value).$($values.Matches.Groups[2].Value).$($values.Matches.Groups[3].Value)"
+          $value = "latest=$($values.Matches.Groups[1].Value).$($values.Matches.Groups[2].Value).$($values.Matches.Groups[3].Value)" 
         }
-        
+
         echo "value: $($value)"
         echo $value >> $GITHUB_OUTPUT
 
