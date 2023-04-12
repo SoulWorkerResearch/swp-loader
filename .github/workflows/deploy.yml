@@ -22,26 +22,32 @@ jobs:
     - name: Get Latest Tag
       id: tags
       shell: pwsh
+      env: 
+        GH_TOKEN: ${{ github.token }}
       run: | 
         $tag = gh release list -L 1 | Select-String -Pattern "Latest\t([\d]+\.[\d]+\.[\d]+)\t" -AllMatches
-        if ($tag.Matches.Groups.Length -eq 0) {
-          echo "latest=0.0.0" >> $GITHUB_OUTPUT
-          return;
-        }
         
-        echo "latest=$($tag.Matches.Groups[1].Value)" >> $GITHUB_OUTPUT
+        $value = "latest=0.0.0"
+        if ($tag.Matches.Groups.Length -ne 0) {
+          $value = "latest=$($tag.Matches.Groups[1].Value)"
+        }
+
+        echo "value: $($value)"
+        echo $value >> $GITHUB_OUTPUT
 
     - name: Get Current SDK Version
       id: sdk
       shell: pwsh
       run: | 
         $values = Get-Content -Path ".\swp-sdk\swp-sdk\headers\swpsdk\sdk_version.hpp" | Select-String -Pattern "sdk_version{\W+([\d]+)\,\W+([\d]+)\,\W+([\d]+)\,\W+([\d]+)\W+}" -AllMatches
-        if ($values.Matches.Groups.Length -eq 0) {
-          echo "latest=0.0.0" >> $GITHUB_OUTPUT
-          return;
+        
+        $value = "latest=0.0.0"
+        if ($values.Matches.Groups.Length -ne 0) {
+          $value = latest="$($values.Matches.Groups[1].Value).$($values.Matches.Groups[2].Value).$($values.Matches.Groups[3].Value)"
         }
-
-        echo latest="$($values.Matches.Groups[1].Value).$($values.Matches.Groups[2].Value).$($values.Matches.Groups[3].Value)" >> $GITHUB_OUTPUT
+        
+        echo "value: $($value)"
+        echo $value >> $GITHUB_OUTPUT
 
   publish:
     runs-on: windows-latest
