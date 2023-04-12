@@ -52,7 +52,7 @@ jobs:
   publish:
     runs-on: windows-latest
     needs: meta
-    if: (needs.meta.outputs.latestTag != needs.meta.outputs.latestSdk) || (needs.meta.outputs.latestSdk == '0.0.0')
+    if: (needs.meta.outputs.latestTag != needs.meta.outputs.latestSdk) && (needs.meta.outputs.latestSdk != '0.0.0')
     strategy:
       fail-fast: true
       matrix: 
