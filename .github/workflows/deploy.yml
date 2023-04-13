@@ -37,7 +37,7 @@ jobs:
     - name: Cache VCPKG packages
       uses: actions/cache@main
       with:
-        key: vcpkg
+        key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
         path: ${{ env.VCPKG_CACHE_DIR }}
 
     - name: Build solution
