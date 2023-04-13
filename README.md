@@ -26,7 +26,7 @@ That's what we're all here for. Dll library for loading plugins into this wonder
 
 - [check this](https://github.blog/2023-03-23-we-updated-our-rsa-ssh-host-key/)
 
-- If the error still occurs, try running the command through git bash, it is usually installed with `Git for Windows'. Or run the command in the WSL
+- If the error still occurs, try running the command through git bash, it is usually installed with `Git for Windows`. Or run the command in the WSL
 
 - Also, submodules installed via SSH auth
 
