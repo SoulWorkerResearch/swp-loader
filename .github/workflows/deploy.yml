@@ -5,6 +5,9 @@ on:
     branches:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
+env:
+  VCPKG_CACHE_DIR: ~/.vcpkg/cache
+
 jobs:
   publish:
     runs-on: windows-latest
@@ -13,10 +16,10 @@ jobs:
       matrix: 
         include:
           - BUILD_CONFIGURATION: Debug
-            PATHS: bin/*.dll, bin/*.pdb
+            PATHS: bin/**/.dll, bin/**/.pdb
 
           - BUILD_CONFIGURATION: Release
-            PATHS: bin/*.dll
+            PATHS: bin/**/.dll
 
     name: Build a ${{ matrix.BUILD_CONFIGURATION }} version
     steps: 
@@ -31,8 +34,14 @@ jobs:
     - name: Integrate vcpkg
       run: vcpkg integrate install
       
+    - name: Cache VCPKG packages
+      uses: actions/cache@main
+      with:
+        key: vcpkg
+        path: ${{ env.VCPKG_CACHE_DIR }}
+
     - name: Build solution
-      run: msbuild /m /p:Configuration=${{ matrix.BUILD_CONFIGURATION }} /property:Platform=x86
+      run: msbuild /m /p:Configuration=${{ matrix.BUILD_CONFIGURATION }} /property:Platform=x86 /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}
 
     - name: Pack to archive
       run: Compress-Archive -Path ${{ matrix.PATHS }} -DestinationPath swp-loader-${{ github.ref_name }}-${{ matrix.BUILD_CONFIGURATION }}.zip

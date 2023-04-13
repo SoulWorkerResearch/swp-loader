@@ -5,6 +5,9 @@ on:
     branches-ignore:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
+env:
+  VCPKG_CACHE_DIR: ~/.vcpkg/cache
+
 jobs:
   publish:
     runs-on: windows-latest
@@ -28,5 +31,11 @@ jobs:
     - name: Integrate vcpkg
       run: vcpkg integrate install
       
+    - name: Cache VCPKG packages
+      uses: actions/cache@main
+      with:
+        key: vcpkg
+        path: ${{ env.VCPKG_CACHE_DIR }}
+
     - name: Build solution
-      run: msbuild /m /p:Configuration=${{ matrix.BUILD_CONFIGURATION }} /property:Platform=x86
+      run: msbuild /m /p:Configuration=${{ matrix.BUILD_CONFIGURATION }} /property:Platform=x86 /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}
