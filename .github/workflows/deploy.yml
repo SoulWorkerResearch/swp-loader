@@ -27,9 +27,6 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@main
-      with:
-        vs-version: '(17.6)'
-        vs-prerelease: true
 
     - name: Integrate vcpkg
       run: vcpkg integrate install
@@ -38,11 +35,12 @@ jobs:
       run: msbuild /m /p:Configuration=${{ matrix.BUILD_CONFIGURATION }} /property:Platform=x86
 
     - name: Pack to archive
-      run: Compress-Archive -Path ${{ matrix.PATHS }} -DestinationPath swp-loader-v${{ github.ref_name }}-${{ matrix.BUILD_CONFIGURATION }}.zip
+      run: Compress-Archive -Path ${{ matrix.PATHS }} -DestinationPath swp-loader-${{ github.ref_name }}-${{ matrix.BUILD_CONFIGURATION }}.zip
 
     - name: Publish build
       uses: softprops/action-gh-release@master
       with:
-        name: SoulWorker Plugin Loader v${{ github.ref_name }}
-        files: swp-loader-v${{ github.ref_name }}-${{ matrix.BUILD_CONFIGURATION }}.zip
+        name: SoulWorker Plugin Loader ${{ github.ref_name }}
+        files: swp-loader-${{ github.ref_name }}-${{ matrix.BUILD_CONFIGURATION }}.zip
         generate_release_notes: true
+        tag_name: ${{ github.ref_name }}
