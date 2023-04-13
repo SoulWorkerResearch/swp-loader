@@ -2,57 +2,12 @@ name: Deploy
 
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - 'v[\d].[\d].[\d]'
 
 jobs:
-  meta:
-    runs-on: windows-latest
-            
-    outputs:
-      latestTag: ${{ steps.tags.outputs.latestVer }}
-      latestSdk: ${{ steps.sdk.outputs.latestSDK }}
-
-    steps:          
-    - name: Checkout
-      uses: actions/checkout@main
-      with:
-        submodules: true
-
-    - name: Get Latest Tag
-      id: tags
-      shell: pwsh
-      env: 
-        GH_TOKEN: ${{ github.token }}
-      run: | 
-        $tag = gh release list -L 1 | Select-String -Pattern "Latest\t([\d]+\.[\d]+\.[\d]+)\t" -AllMatches
-        
-        $value = "latestVer=0.0.0"
-        if ($tag.Matches.Groups.Length -ne 0) {
-          $value = "latestVer=$($tag.Matches.Groups[1].Value)"
-        }
-
-        echo $value
-        echo $value >> $env:GITHUB_OUTPUT
-
-    - name: Get Current SDK Version
-      id: sdk
-      shell: pwsh
-      run: | 
-        $values = Get-Content -Path ".\swp-sdk\swp-sdk\headers\swpsdk\sdk_version.hpp" | Select-String -Pattern "sdk_version{\W+([\d]+)\,\W+([\d]+)\,\W+([\d]+)(\W+|,\W+[\d]+\W+)}" -AllMatches
-        
-        $value = "latestSDK=0.0.0"
-        if ($values.Matches.Groups.Length -ne 0) {
-          $value = "latestSDK=$($values.Matches.Groups[1].Value).$($values.Matches.Groups[2].Value).$($values.Matches.Groups[3].Value)" 
-        }
-
-        echo $value
-        echo $value >> $env:GITHUB_OUTPUT
-
   publish:
     runs-on: windows-latest
-    needs: meta
-    if: needs.meta.outputs.latestTag != needs.meta.outputs.latestSdk && needs.meta.outputs.latestSdk != '0.0.0'
     strategy:
       fail-fast: true
       matrix: 
@@ -63,18 +18,15 @@ jobs:
           - BUILD_CONFIGURATION: Release
             PATHS: bin/*.dll
 
-
-    name: ${{ matrix.BUILD_CONFIGURATION }}
+    name: Build a ${{ matrix.BUILD_CONFIGURATION }} version
     steps: 
     - name: Checkout
       uses: actions/checkout@main
-      with:
+      with: 
         submodules: true
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@main
-      # with:
-        # vs-version: 17.6
 
     - name: Integrate vcpkg
       run: vcpkg integrate install
@@ -83,11 +35,11 @@ jobs:
       run: msbuild /m /p:Configuration=${{ matrix.BUILD_CONFIGURATION }} /property:Platform=x86
 
     - name: Pack to archive
-      run: Compress-Archive -Path ${{ matrix.PATHS }} -DestinationPath swp-loader-v${{ needs.meta.outputs.latestSdk }}-${{ matrix.BUILD_CONFIGURATION }}.zip
+      run: Compress-Archive -Path ${{ matrix.PATHS }} -DestinationPath swp-loader-v${{ github.ref_name }}-${{ matrix.BUILD_CONFIGURATION }}.zip
 
     - name: Publish build
       uses: softprops/action-gh-release@master
       with:
-        name: SoulWorker Plugin Loader v${{ needs.meta.outputs.latestSdk }}
-        files: swp-loader-v${{ needs.meta.outputs.latestSdk }}-${{ matrix.BUILD_CONFIGURATION }}.zip
+        name: SoulWorker Plugin Loader v${{ github.ref_name }}
+        files: swp-loader-v${{ github.ref_name }}-${{ matrix.BUILD_CONFIGURATION }}.zip
         generate_release_notes: true
