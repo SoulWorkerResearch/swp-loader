@@ -73,8 +73,8 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@main
-      with:
-        vs-version: 17.6
+      # with:
+        # vs-version: 17.6
 
     - name: Integrate vcpkg
       run: vcpkg integrate install
