@@ -7,11 +7,11 @@ on:
 
 jobs:
   meta:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
             
     outputs:
-      latestTag: ${{ steps.tags.outputs.latest }}
-      latestSdk: ${{ steps.sdk.outputs.latest }}
+      latestTag: ${{ steps.tags.outputs.latestVer }}
+      latestSdk: ${{ steps.sdk.outputs.latestSDK }}
 
     steps:          
     - name: Checkout
@@ -27,13 +27,13 @@ jobs:
       run: | 
         $tag = gh release list -L 1 | Select-String -Pattern "Latest\t([\d]+\.[\d]+\.[\d]+)\t" -AllMatches
         
-        $value = "latest=0.0.0"
+        $value = "latestVer=0.0.0"
         if ($tag.Matches.Groups.Length -ne 0) {
-          $value = "latest=$($tag.Matches.Groups[1].Value)"
+          $value = "latestVer=$($tag.Matches.Groups[1].Value)"
         }
 
-        echo "value: $($value)"
-        echo $value >> $GITHUB_OUTPUT
+        echo $value
+        echo $value >> $env:GITHUB_OUTPUT
 
     - name: Get Current SDK Version
       id: sdk
@@ -41,18 +41,18 @@ jobs:
       run: | 
         $values = Get-Content -Path ".\swp-sdk\swp-sdk\headers\swpsdk\sdk_version.hpp" | Select-String -Pattern "sdk_version{\W+([\d]+)\,\W+([\d]+)\,\W+([\d]+)(\W+|,\W+[\d]+\W+)}" -AllMatches
         
-        $value = "latest=0.0.0"
+        $value = "latestSDK=0.0.0"
         if ($values.Matches.Groups.Length -ne 0) {
-          $value = "latest=$($values.Matches.Groups[1].Value).$($values.Matches.Groups[2].Value).$($values.Matches.Groups[3].Value)" 
+          $value = "latestSDK=$($values.Matches.Groups[1].Value).$($values.Matches.Groups[2].Value).$($values.Matches.Groups[3].Value)" 
         }
 
-        echo "value: $($value)"
-        echo $value >> $GITHUB_OUTPUT
+        echo $value
+        echo $value >> $env:GITHUB_OUTPUT
 
   publish:
     runs-on: windows-latest
     needs: meta
-    if: (needs.meta.outputs.latestTag != needs.meta.outputs.latestSdk) && (needs.meta.outputs.latestSdk != '0.0.0')
+    if: needs.meta.outputs.latestTag != needs.meta.outputs.latestSdk && needs.meta.outputs.latestSdk != '0.0.0'
     strategy:
       fail-fast: true
       matrix: 
@@ -63,8 +63,9 @@ jobs:
           - BUILD_CONFIGURATION: Release
             PATHS: bin/*.dll
 
+
     name: ${{ matrix.BUILD_CONFIGURATION }}
-    steps:          
+    steps: 
     - name: Checkout
       uses: actions/checkout@main
       with:
@@ -72,6 +73,8 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@main
+      with:
+        vs-version: 17.6
 
     - name: Integrate vcpkg
       run: vcpkg integrate install
