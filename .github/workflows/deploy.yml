@@ -14,16 +14,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        include:
-          - BUILD_CONFIGURATION: Debug
-            PATHS: "bin/**/.dll, bin/**/.pdb"
-            ARCH: ["x64", "x86"]
+        build-config: ["Debug", "Release"]
+        arch: ["x64", "x86"]
+        path: ["bin/**/.dll, bin/**/.pdb", "bin/**/.dll"]
 
-          - BUILD_CONFIGURATION: Release
-            PATHS: "bin/**/.dll"
-            ARCH: ["x64", "x86"]
-
-    name: Build a ${{ matrix.BUILD_CONFIGURATION }} (${{ matrix.ARCH }}) version
+    name: Build a ${{ matrix.build-config }} (${{ matrix.arch }} / ${{ matrix.path }}) version
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -43,15 +38,18 @@ jobs:
           path: ${{ env.VCPKG_CACHE_DIR }}
 
       - name: Build solution
-        run: msbuild /m /p:Configuration=${{ matrix.BUILD_CONFIGURATION }} /property:Platform=${{ matrix.ARCH }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}
+        run: msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}
 
       - name: Pack to archive
-        run: Compress-Archive -Path ${{ matrix.PATHS }} -DestinationPath swp-loader-${{ github.ref_name }}-${{ matrix.BUILD_CONFIGURATION }}-${{ matrix.ARCH }}.zip
+        env:
+          first-name: ${{ github.ref_name }}-${{ matrix.build-config }}-${{ matrix.arch }}
+          symbols-name: ${{ contains('.pdb', matrix.path) && 'WithDebugSymbols' || '' }}
+        run: Compress-Archive -Path ${{ matrix.path }} -DestinationPath swp-loader-${{ env.first-name }}-${{ env.symbols-name }}.zip
 
       - name: Publish build
         uses: softprops/action-gh-release@master
         with:
           name: SoulWorker Plugin Loader ${{ github.ref_name }}
-          files: swp-loader-${{ github.ref_name }}-${{ matrix.BUILD_CONFIGURATION }}.zip
+          files: swp-loader-${{ github.ref_name }}-${{ matrix.build-config }}.zip
           generate_release_notes: true
           tag_name: ${{ github.ref_name }}
