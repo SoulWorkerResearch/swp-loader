@@ -27,6 +27,8 @@ jobs:
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@main
+        with:
+          vs-prerelease: true
 
       - name: Integrate vcpkg
         run: vcpkg integrate install
