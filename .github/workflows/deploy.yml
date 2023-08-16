@@ -26,7 +26,7 @@ jobs:
     env:
       archive-name: swp-loader-${{ github.ref_name }}-${{ matrix.build-config }}-${{ matrix.arch }}${{ contains('.pdb', matrix.path) && '-WithDebugSymbols' || '' }}.zip
 
-    name: "Build a ${{ matrix.build-config }} (${{ matrix.arch }} / ${{ matrix.path }}) version"
+    name: "Build a ${{ matrix.build-config }} (${{ matrix.arch }} | ${{ matrix.path }}) version"
     steps:
       - name: "Print Archive name"
         run: "echo ${{ env.archive-name }}"
