@@ -17,7 +17,7 @@ jobs:
         build-config: ["Debug", "Release"]
         arch: ["x64", "x86"]
 
-    name: Build a ${{ matrix.build-config }} (${{ matrix.arch }} / ${{ matrix.path }}) version
+    name: Build a ${{ matrix.build-config }} (${{ matrix.arch }} version
     steps:
       - name: Checkout
         uses: actions/checkout@main
