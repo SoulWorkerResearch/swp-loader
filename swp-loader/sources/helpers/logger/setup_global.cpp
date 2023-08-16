@@ -8,7 +8,7 @@ namespace swpl::helpers::logger
 {
 	auto setup_global(const HINSTANCE _instance, const config& _config) -> bool
 	{
-		constexpr const auto generate_name = [](void) -> decltype(auto)
+		constexpr static const auto generate_name = [](void) -> decltype(auto)
 		{
 			return std::format("{:%FT%H-%M-%S}.txt", std::chrono::system_clock::now());
 		};
