@@ -49,7 +49,7 @@ jobs:
           path: "${{ env.VCPKG_CACHE_DIR }}"
 
       - name: "Build solution"
-        run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}"
+        run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstallManifestDependencies=${{ env.VCPKG_CACHE_DIR }}"
 
       - name: "Pack to archive"
         run: "Compress-Archive -Path ${{ matrix.path }} -DestinationPath ${{ env.archive-path }}"
