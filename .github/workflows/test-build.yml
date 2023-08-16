@@ -41,7 +41,7 @@ jobs:
           path: "${{ env.VCPKG_CACHE_DIR }}"
 
       - name: "Integrate vcpkg"
-        run: "vcpkg integrate --dry-run install"
+        run: "vcpkg integrate install"
 
       - name: "Build solution"
         run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}"
