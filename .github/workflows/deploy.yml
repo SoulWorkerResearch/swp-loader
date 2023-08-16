@@ -21,15 +21,15 @@ jobs:
       matrix:
         build-config: ["Debug", "Release"]
         arch: ["x64", "x86"]
-        path: ["bin/**/.dll, bin/**/.pdb", "bin/**/.dll"]
+        path: ["bin/*.dll, bin/*.pdb", "bin/*.dll"]
 
     env:
-      archive-name: swp-loader-${{ github.ref_name }}-${{ matrix.build-config }}-${{ matrix.arch }}${{ contains(matrix.path, '.pdb') && '-WithDebugSymbols' || '' }}.zip
+      archive-path: swp-loader-${{ github.ref_name }}-${{ matrix.build-config }}-${{ matrix.arch }}${{ contains(matrix.path, '.pdb') && '-WithDebugSymbols' || '' }}.zip
 
     name: "Build a ${{ matrix.build-config }} (${{ matrix.arch }} | ${{ matrix.path }}) version"
     steps:
       - name: "Print Archive name"
-        run: "echo ${{ env.archive-name }}"
+        run: "echo ${{ env.archive-path }}"
 
       - name: "Checkout"
         uses: "actions/checkout@main"
@@ -52,7 +52,7 @@ jobs:
         run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}"
 
       - name: "Pack to archive"
-        run: "Compress-Archive -Path ${{ matrix.path }} -DestinationPath ${{format('{0}/{1}', github.workspace, env.archive-name)}}"
+        run: "Compress-Archive -Path ${{ matrix.path }} -DestinationPath ${{ env.archive-path }}"
 
       - name: "Files in workplace"
         run: "ls ${{ github.workspace }}"
@@ -61,6 +61,6 @@ jobs:
         uses: "softprops/action-gh-release@master"
         with:
           name: "SoulWorker Plugin Loader ${{ github.ref_name }}"
-          files: ${{format('{0}/{1}', github.workspace, env.archive-name)}}
+          files: ${{ env.archive-path }}
           generate_release_notes: true
           tag_name: "${{ github.ref_name }}"
