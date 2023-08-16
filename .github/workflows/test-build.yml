@@ -45,4 +45,4 @@ jobs:
         run: "vcpkg integrate install"
 
       - name: "Build solution"
-        run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }}
+        run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }}"
