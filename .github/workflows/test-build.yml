@@ -1,9 +1,9 @@
-name: Test Build
+name: Deploy
 
 on:
   push:
     branches-ignore:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 env:
   VCPKG_CACHE_DIR: ~/.vcpkg/cache
@@ -13,29 +13,28 @@ jobs:
     runs-on: windows-latest
     strategy:
       fail-fast: true
-      matrix: 
-        include:
-          - BUILD_CONFIGURATION: Debug
-          - BUILD_CONFIGURATION: Release
-            
-    name: ${{ matrix.BUILD_CONFIGURATION }}
-    steps:          
-    - name: Checkout
-      uses: actions/checkout@main
-      with:
-        submodules: true
+      matrix:
+        build-config: ["Debug", "Release"]
+        arch: ["x64", "x86"]
 
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@main
+    name: Build a ${{ matrix.build-config }} (${{ matrix.arch }} / ${{ matrix.path }}) version
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          submodules: true
 
-    - name: Integrate vcpkg
-      run: vcpkg integrate install
-      
-    - name: Cache VCPKG packages
-      uses: actions/cache@main
-      with:
-        key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
-        path: ${{ env.VCPKG_CACHE_DIR }}
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@main
 
-    - name: Build solution
-      run: msbuild /m /p:Configuration=${{ matrix.BUILD_CONFIGURATION }} /property:Platform=x86 /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}
+      - name: Integrate vcpkg
+        run: vcpkg integrate install
+
+      - name: Cache VCPKG packages
+        uses: actions/cache@main
+        with:
+          key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
+          path: ${{ env.VCPKG_CACHE_DIR }}
+
+      - name: Build solution
+        run: msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}
