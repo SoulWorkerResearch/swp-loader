@@ -8,6 +8,10 @@ on:
 env:
   VCPKG_CACHE_DIR: "~/.vcpkg/cache"
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  VCPKG_FEATURE_FLAGS: "dependencygraph"
+
+permissions:
+  contents: "write"
 
 jobs:
   publish:
