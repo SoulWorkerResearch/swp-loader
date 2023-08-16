@@ -35,7 +35,8 @@ jobs:
           vs-prerelease: true
 
       - name: "Cache VCPKG packages"
-        uses: "actions/cache@main"
+        uses: "actions/cache@v2"
+        id: "vcpkg-cache"
         with:
           key: "${{ runner.os }}-${{ matrix.arch }}-${{ matrix.build-config }}-vcpkg-${{ hashFiles('vcpkg.json') }}"
           path: "${{ env.VCPKG_CACHE_DIR }}"
