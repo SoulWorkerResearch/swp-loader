@@ -52,12 +52,15 @@ jobs:
         run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}"
 
       - name: "Pack to archive"
-        run: "Compress-Archive -Path ${{ matrix.path }} -DestinationPath ${{ env.archive-name }}"
+        run: "Compress-Archive -Path ${{ matrix.path }} -DestinationPath ${{format('{0}/{1}', github.workspace, env.archive-name)}}"
+
+      - name: "Files in workplace"
+        run: "ls ${{ github.workspace }}"
 
       - name: "Publish build"
         uses: "softprops/action-gh-release@master"
         with:
           name: "SoulWorker Plugin Loader ${{ github.ref_name }}"
-          files: "${{ env.archive-name }}"
+          files: ${{format('{0}/{1}', github.workspace, env.archive-name)}}
           generate_release_notes: true
           tag_name: "${{ github.ref_name }}"
