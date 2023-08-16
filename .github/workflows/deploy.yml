@@ -40,7 +40,7 @@ jobs:
         uses: "microsoft/setup-msbuild@main"
 
       - name: "Integrate vcpkg"
-        run: "vcpkg integrate install"
+        run: "vcpkg integrate --dry-run install"
 
       - name: "Cache VCPKG packages"
         uses: "actions/cache@main"
