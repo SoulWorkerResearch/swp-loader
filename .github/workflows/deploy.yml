@@ -21,7 +21,7 @@ jobs:
       matrix:
         build-config: ["Debug", "Release"]
         arch: ["x64", "x86"]
-        path: ["bin/*.dll, bin/*.pdb", "bin/*.dll"]
+        path: ["bin/**/*.dll, bin/**/*.pdb", "bin/**/*.dll"]
 
     env:
       archive-path: swp-loader-${{ github.ref_name }}-${{ matrix.build-config }}-${{ matrix.arch }}${{ contains(matrix.path, '.pdb') && '-WithDebugSymbols' || '' }}.zip
