@@ -8,6 +8,7 @@
 #define PCH_H
 
 #define SPDLOG_USE_STD_FORMAT
+#define BOOST_DLL_USE_STD_FS
 
 // add headers that you want to pre-compile here
 #include "framework.hpp"
