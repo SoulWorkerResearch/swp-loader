@@ -23,6 +23,9 @@ jobs:
         arch: ["x64", "x86"]
         path: ["bin/**/.dll, bin/**/.pdb", "bin/**/.dll"]
 
+    env:
+      archive-name: "swp-loader-${{ github.ref_name }}-${{ matrix.build-config }}-${{ matrix.arch }}-${{ contains('.pdb', matrix.path) && 'WithDebugSymbols' || '' }}.zip"
+
     name: "Build a ${{ matrix.build-config }} (${{ matrix.arch }} / ${{ matrix.path }}) version"
     steps:
       - name: "Checkout"
@@ -46,15 +49,12 @@ jobs:
         run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}"
 
       - name: "Pack to archive"
-        env:
-          first-name: ${{ github.ref_name }}-${{ matrix.build-config }}-${{ matrix.arch }}
-          symbols-name: ${{ contains('.pdb', matrix.path) && 'WithDebugSymbols' || '' }}
-        run: "Compress-Archive -Path ${{ matrix.path }} -DestinationPath swp-loader-${{ env.first-name }}-${{ env.symbols-name }}.zip"
+        run: "Compress-Archive -Path ${{ matrix.path }} -DestinationPath ${{ env.archive-name }}.zip"
 
       - name: "Publish build"
         uses: "softprops/action-gh-release@master"
         with:
           name: "SoulWorker Plugin Loader ${{ github.ref_name }}"
-          files: "swp-loader-${{ github.ref_name }}-${{ matrix.build-config }}.zip"
+          files: "${{ env.archive-name }}"
           generate_release_notes: true
-          tag_name: ${{ github.ref_name }}
+          tag_name: "${{ github.ref_name }}"
