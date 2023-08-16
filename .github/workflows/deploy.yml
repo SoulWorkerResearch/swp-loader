@@ -1,4 +1,4 @@
-name: Deploy
+name: "Deploy"
 
 on:
   push:
@@ -6,11 +6,12 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
 env:
-  VCPKG_CACHE_DIR: ~/.vcpkg/cache
+  VCPKG_CACHE_DIR: "~/.vcpkg/cache"
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   publish:
-    runs-on: windows-latest
+    runs-on: "windows-latest"
     strategy:
       fail-fast: true
       matrix:
@@ -18,38 +19,38 @@ jobs:
         arch: ["x64", "x86"]
         path: ["bin/**/.dll, bin/**/.pdb", "bin/**/.dll"]
 
-    name: Build a ${{ matrix.build-config }} (${{ matrix.arch }} / ${{ matrix.path }}) version
+    name: "Build a ${{ matrix.build-config }} (${{ matrix.arch }} / ${{ matrix.path }}) version"
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+      - name: "Checkout"
+        uses: "actions/checkout@main"
         with:
           submodules: true
 
-      - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@main
+      - name: "Add MSBuild to PATH"
+        uses: "microsoft/setup-msbuild@main"
 
-      - name: Integrate vcpkg
-        run: vcpkg integrate install
+      - name: "Integrate vcpkg"
+        run: "vcpkg integrate install"
 
-      - name: Cache VCPKG packages
-        uses: actions/cache@main
+      - name: "Cache VCPKG packages"
+        uses: "actions/cache@main"
         with:
-          key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
-          path: ${{ env.VCPKG_CACHE_DIR }}
+          key: "${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}"
+          path: "${{ env.VCPKG_CACHE_DIR }}"
 
-      - name: Build solution
-        run: msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}
+      - name: "Build solution"
+        run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }} /property:VcpkgInstalledDir=${{ env.VCPKG_CACHE_DIR }}"
 
-      - name: Pack to archive
+      - name: "Pack to archive"
         env:
           first-name: ${{ github.ref_name }}-${{ matrix.build-config }}-${{ matrix.arch }}
           symbols-name: ${{ contains('.pdb', matrix.path) && 'WithDebugSymbols' || '' }}
-        run: Compress-Archive -Path ${{ matrix.path }} -DestinationPath swp-loader-${{ env.first-name }}-${{ env.symbols-name }}.zip
+        run: "Compress-Archive -Path ${{ matrix.path }} -DestinationPath swp-loader-${{ env.first-name }}-${{ env.symbols-name }}.zip"
 
-      - name: Publish build
-        uses: softprops/action-gh-release@master
+      - name: "Publish build"
+        uses: "softprops/action-gh-release@master"
         with:
-          name: SoulWorker Plugin Loader ${{ github.ref_name }}
-          files: swp-loader-${{ github.ref_name }}-${{ matrix.build-config }}.zip
+          name: "SoulWorker Plugin Loader ${{ github.ref_name }}"
+          files: "swp-loader-${{ github.ref_name }}-${{ matrix.build-config }}.zip"
           generate_release_notes: true
           tag_name: ${{ github.ref_name }}
