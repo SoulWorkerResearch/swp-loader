@@ -27,7 +27,7 @@ namespace swpl::plugin
 
 		logger->debug("try load plugin: {}", _entry.path().filename());
 
-		dll::shared_library dll{ _entry.path() };
+		dll::shared_library dll(_entry.path());
 
 		if (not dll.has("get_info")) {
 			logger->error("haven't get_info function.", _entry);
