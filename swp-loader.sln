@@ -14,6 +14,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "swp-loader", "swp-loader\pr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "swp-sdk", "swp-sdk\swp-sdk\projects\windows\swp-sdk.vcxproj", "{FAF6A873-FC74-4CF9-9767-07B6513B9CCD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{8F28ED92-066F-4D81-B431-A85722197BEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{5A43E180-8830-4EDD-82B0-22992CB9E760}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +58,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8F28ED92-066F-4D81-B431-A85722197BEE} = {63EEFC1C-6495-4740-A31D-79F739B0B103}
+		{5A43E180-8830-4EDD-82B0-22992CB9E760} = {8F28ED92-066F-4D81-B431-A85722197BEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1C576E4-2334-4147-8345-F578440D4A30}

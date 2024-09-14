@@ -13,7 +13,7 @@ namespace swpl::helpers::logger
 			return std::format("{:%FT%H-%M-%S}.txt", std::chrono::system_clock::now());
 		};
 
-		if (_config.use_console && FALSE == AllocConsole()) {
+		if (_config.console.use && FALSE == AllocConsole()) {
 			return false;
 		}
 
@@ -25,12 +25,12 @@ namespace swpl::helpers::logger
 		const auto to{ app::LOGS_DIR / std::invoke(generate_name) };
 		std::vector<spdlog::sink_ptr> sinks{ std::make_shared<sinks::basic_file_sink_mt>(to.string(), true) };
 
-		if (_config.use_console) {
+		if (_config.console.use) {
 			sinks.emplace_back(std::make_shared<sinks::stdout_color_sink_mt>(spdlog::color_mode::always));
 		}
 
 		spdlog::set_default_logger(std::make_shared<spdlog::logger>(fs::path{ name }.filename().stem().string(), sinks.cbegin(), sinks.cend()));
-		spdlog::set_level(spdlog::level::from_str(_config.level));
+		spdlog::set_level(spdlog::level::from_str(_config.logger.level));
 
 		return true;
 	}

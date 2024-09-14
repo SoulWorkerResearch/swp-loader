@@ -9,17 +9,14 @@ namespace views = std::views;
 
 namespace swpl
 {
-	auto ensure_dirs_exists(void) -> bool
+	static auto ensure_dirs_exists(void) -> bool
 	{
-		if (not fs::exists(app::LOGS_DIR) and not fs::create_directories(app::LOGS_DIR)) {
-			return false;
-		}
+		const std::initializer_list dirs{ app::ROOT_DIR, app::LOGS_DIR, app::LOGS_DIR, app::CONFIGS_DIR };
 
-		if (not fs::exists(app::PLUGINS_DIR) and not fs::create_directories(app::PLUGINS_DIR)) {
-			return false;
-		}
-
-		return true;
+		return not std::ranges::any_of(dirs, [](auto v) 
+			{
+				return not fs::exists(v) and not fs::create_directories(v); 
+			});
 	}
 
 	auto app::on_attach(const HINSTANCE _instance) -> bool
@@ -30,7 +27,7 @@ namespace swpl
 			return false;
 		}
 
-		if (const auto cfg{ config::create() }; not helpers::logger::setup_global(_instance, cfg)) {
+		if (not helpers::logger::setup_global(_instance, m_config)) {
 			return false;
 		}
 
@@ -43,6 +40,13 @@ namespace swpl
 
 	auto app::on_detach(void) -> bool
 	{
+		spdlog::debug("Logger shutdown.");
+		spdlog::shutdown();
+
+		if (m_config.console.use && not m_config.console.leave) {
+			FreeConsole();
+		}
+
 		return true;
 	}
 
@@ -79,5 +83,9 @@ namespace swpl
 		}
 
 		spdlog::debug("plugins loaded");
+	}
+
+	app::app(void) : m_config { config::create() }
+	{
 	}
 }

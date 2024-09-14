@@ -118,6 +118,9 @@
     <ClCompile Include="..\..\sources\helpers\logger\setup_global.cpp">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sources\config.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\resources\exports.def">

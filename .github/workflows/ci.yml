@@ -1,0 +1,86 @@
+name: "Continuous Integration"
+
+on: [push]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+  VCPKG_FEATURE_FLAGS: "dependencygraph"
+
+permissions:
+  contents: "write"
+
+jobs:
+  publish:
+    runs-on: "windows-latest"
+    strategy:
+      fail-fast: true
+      matrix:
+        build-config: ["Debug", "Release"]
+        arch: ["x64", "x86"]
+        path: ["swp/**/*.dll swp/**/*.pdb", "swp/**/*.dll"]
+
+    env:
+      ARCHIVE_NAME: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.build-config }}-${{ matrix.arch }}${{ contains(matrix.path, '.pdb') && '-WithDebugSymbols' || '' }}.zip
+
+    name: "Build a ${{ matrix.build-config }} (${{ matrix.arch }} | ${{ matrix.path }}) version"
+    steps:
+      - name: "Export GitHub Actions cache environment variables"
+        uses: "actions/github-script@main"
+        with:
+          script: |
+            core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+
+      - name: "Print Archive name"
+        run: |
+          echo ${{ env.ARCHIVE_NAME }}
+
+      - id: "variables"
+        name: "Generate Variables"
+        run: |
+          $name = ("${{ github.event.repository.name }}".Substring(4) -split '-') | ForEach-Object { $_.Substring(0, 1).ToUpper() + $_.Substring(1).ToLower() } | Join-String -Separator ' ';
+          echo "name=$name" >> $env:GITHUB_OUTPUT
+
+          if ("${{ github.ref_name }}" -match '^v[0-9]+.[0-9]+.[0-9]+$') {
+            echo "is_test=false" >> $env:GITHUB_OUTPUT
+          } else {
+            echo "is_test=true" >> $env:GITHUB_OUTPUT
+          }
+
+      - name: "Release name"
+        run: 'echo "Release name: ${{ steps.variables.outputs.name }}"'
+
+      - name: "Is Test?"
+        run: 'echo "Test status: ${{ steps.variables.outputs.is_test }}"'
+
+      - name: "Checkout"
+        uses: "actions/checkout@main"
+        with:
+          submodules: true
+
+      - name: "Add MSBuild to PATH"
+        uses: "microsoft/setup-msbuild@main"
+        with:
+          vs-prerelease: true
+
+      - name: "Integrate vcpkg"
+        run: "vcpkg integrate install"
+
+      - name: "Build solution"
+        run: "msbuild /m /p:Configuration=${{ matrix.build-config }} /property:Platform=${{ matrix.arch }}"
+
+      - name: "Pack to archive"
+        run: |
+            cd bin/${{ matrix.build-config }}
+            7z -r a ../../${{ env.ARCHIVE_NAME }} ${{ matrix.path }}
+            7z l ../../${{ env.ARCHIVE_NAME }}
+
+      - name: "Publish build"
+        uses: "softprops/action-gh-release@master"
+        if: ${{ steps.variables.outputs.is_test == 'false' }}
+        with:
+          name: "${{ steps.variables.outputs.name }} ${{ github.ref_name }}"
+          files: ${{ env.ARCHIVE_NAME }}
+          generate_release_notes: true
+          tag_name: "${{ github.ref_name }}"

@@ -19,10 +19,6 @@ BOOL WINAPI DllMain(HINSTANCE _instance, DWORD fdwReason, LPVOID lpvReserved)
 		return swpl::app::instance().on_attach(_instance);
 
 	case DLL_PROCESS_DETACH:
-		if (lpvReserved != nullptr) { break; }
-
-		FreeConsole();
-
 		return swpl::app::instance().on_detach();
 	}
 
