@@ -80,7 +80,7 @@ jobs:
         uses: "softprops/action-gh-release@master"
         if: ${{ steps.variables.outputs.is_test == 'false' }}
         with:
-          name: "${{ steps.variables.outputs.name }} ${{ github.ref_name }}"
+          name: "SoulWorkerPlugin ${{ steps.variables.outputs.name }} ${{ github.ref_name }}"
           files: ${{ env.ARCHIVE_NAME }}
           generate_release_notes: true
           tag_name: "${{ github.ref_name }}"
